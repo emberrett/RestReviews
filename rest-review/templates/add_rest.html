@@ -1,18 +1,15 @@
 <html>
+
 <head>
-<title>Create a Post </title>
+    <title>Add a restaraunt</title>
 </head>
 
 <body>
-<h1>Create a Post </h1>
-<form action="" method="POST">
-{% csrf_token %}
-Title: <input type="text" name="title"/><br/>
-Content: <br/>
-<textarea cols="35" rows="8" name="content">
-</textarea><br/>
-<input type="submit" value="Post"/>
-</form>
+    <form action="/add_rest" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>
