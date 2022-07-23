@@ -18,7 +18,7 @@ def register(request):
                                         email=email, first_name=first_name, last_name=last_name)
                 user.save()
                 
-                return redirect('login_user')
+                return redirect('login')
 
 
         else:
@@ -29,7 +29,7 @@ def register(request):
     else:
         return render(request, 'accounts/registration.html')
 
-def login_user(request):
+def login(request):
     if request.method == 'POST':
         email = request.POST['username']
         password = request.POST['password']
@@ -41,15 +41,15 @@ def login_user(request):
             return redirect('home')
         else:
             messages.info(request, 'Invalid Email or Password')
-            return redirect('login_user')
+            return redirect('login')
 
 
 
     else:
-        return render(request, 'accounts/login_user.html')
+        return render(request, 'accounts/login.html')
 
 
-def logout_user(request):
+def logout(request):
     auth.logout(request)
     return redirect('home')
 

@@ -22,17 +22,17 @@
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-link">
-          <a class="nav-link" href="add_rest">Add a restaraunt</a>
+          <a class="nav-link" href="add-rest">Add a restaraunt</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="accounts/logout_user">logout</a>
+          <a class="nav-link" href="accounts/logout">logout</a>
         </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="accounts/register">sign up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="accounts/login_user">login</a>
+          <a class="nav-link" href="accounts/login">login</a>
         </li>
         {% endif %}
       </ul>
