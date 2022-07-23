@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>My restaraunts</title>
+</head>
+
+<body>
+    {% for rest in rests %}
+
+    {{rest.restaraunt}},
+    {{rests.rating}},
+    {{rests.category}}, 
+    {{rests.street_address}}, 
+    {{rests.city}}, 
+    {{rests.state}}, 
+    {{rests.postal_code}}, 
+    {{rests.drive_time}},
+    {{rests.notes}}
+    <br>
+    {% endfor %}
+</body>
+
+</html>
+
