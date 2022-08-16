@@ -5,20 +5,32 @@
 </head>
 
 <body>
-    {% for rest in rests %}
+    <table>
+        <tr>
+            <th>Restaraunt</th>
+            <th>Rating</th>
+            <th>Category</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Postal Code</th>
+            <th>Drive Time</th>
+            <th>Notes</th>
+        </tr>
+        {% for rest in rests %}
+        <tr>
+            <td> {{rest.restaraunt}} </td>
+            <td> {{rest.rating}} </td>
+            <td> {{rest.street_address}} </td>
+            <td> {{rest.city}} </td>
+            <td> {{rest.state}} </td>
+            <td> {{rest.postal_code}} </td>
+            <td> {{rest.drive_time}} </td>
+            <td> {{rest.notes}} </td>
+            <td> <button type="button">Edit</button> </td>
+        </tr>
+        {% endfor %}
+    </table>
 
-    {{rest.restaraunt}},
-    {{rests.rating}},
-    {{rests.category}}, 
-    {{rests.street_address}}, 
-    {{rests.city}}, 
-    {{rests.state}}, 
-    {{rests.postal_code}}, 
-    {{rests.drive_time}},
-    {{rests.notes}}
-    <br>
-    {% endfor %}
 </body>
 
 </html>
-
