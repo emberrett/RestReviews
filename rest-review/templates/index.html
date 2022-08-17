@@ -2,46 +2,35 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>rest-review</title>
 </head>
 
 <body>
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="">rest-review</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+  <nav>
+    <a href="">rest-review</a>
+    <div>
+      <ul>
         {% if user.is_authenticated %}
-        <li class="nav-link">
-          <a class="nav-link" href="add-rest">Add a restaraunt</a>
+        <li>
+          <a href="my-rests">My Restaraunts</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="accounts/logout">logout</a>
+        <li>
+          <a href="add-rest">Add a Restaraunt</a>
+        </li>
+        <li>
+          <a href="accounts/logout">logout</a>
         </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="accounts/register">sign up</a>
+        <li>
+          <a href="accounts/register">sign up</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="accounts/login">login</a>
+        <li>
+          <a href="accounts/login">login</a>
         </li>
         {% endif %}
       </ul>
     </div>
   </nav>
-
-  <div class="container my-3">
-    <h1 style="text-align:center;">rest-review</h1>
-  </div>
 
 </body>
 

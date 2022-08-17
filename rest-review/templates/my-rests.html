@@ -5,6 +5,28 @@
 </head>
 
 <body>
+    <nav>
+        <a href="/">rest-review</a>
+        <div>
+            <ul>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="add-rest">Add a Restaraunt</a>
+                </li>
+                <li>
+                    <a href="accounts/logout">logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="accounts/register">sign up</a>
+                </li>
+                <li>
+                    <a href="accounts/login">login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
     <table>
         <tr>
             <th>Restaraunt</th>
@@ -27,6 +49,7 @@
             <td> {{rest.drive_time}} </td>
             <td> {{rest.notes}} </td>
             <td> <button type="button">Edit</button> </td>
+            <td> <button type="button">Delete</button> </td>
         </tr>
         {% endfor %}
     </table>
