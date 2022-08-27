@@ -30,7 +30,7 @@
             </ul>
         </div>
     </nav>
-    <form action="/add-rest" method="post">
+    <form action="{{submit_path}}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Save">

@@ -14,7 +14,6 @@ def homepage(request):
 def add_rest(request):
     if request.method == 'POST':
         form = AddRest(request.POST)
-        #form = form_object.save(commit=False)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
@@ -27,24 +26,23 @@ def add_rest(request):
 
 
 @login_required(login_url='/accounts/login')
-def edit_rest(request, **kwargs):
-    id = kwargs['id']
+def edit_rest(request, id):
+
     obj = get_object_or_404(Rest, id=id)
     if request.method == 'POST':
         form = AddRest(request.POST, instance=obj)
         form.user = request.user
         if form.is_valid():
-            print("HERE HERE HERE")
             obj = form.save(commit=False)
             obj.save()
-        return HttpResponseRedirect('my-rests')
+        return HttpResponseRedirect('/my-rests')
     else:
         form = AddRest(instance=obj)
-
-    return render(request, 'edit-rest.html', {'form': form})
+    submit_path = f'/edit-rest/{id}'
+    return render(request, f'edit-rest.html', {'form': form, submit_path: submit_path})
 
 
 @login_required(login_url='/accounts/login')
 def show_rest(request):
-    rests = Rest.objects.filter(user=request.user)
+    rests = Rest.objects.filter(user=request.user).order_by('id')
     return render(request, 'my-rests.html', {'rests': rests})

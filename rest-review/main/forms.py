@@ -8,5 +8,3 @@ class AddRest(ModelForm):
     class Meta:
         exclude = ["id", "user"]
         model = Rest
-
-    
