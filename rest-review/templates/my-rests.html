@@ -48,7 +48,8 @@
             <td> {{rest.postal_code}} </td>
             <td> {{rest.drive_time}} </td>
             <td> {{rest.notes}} </td>
-            <td> <button type="button">Edit</button> </td>
+            <td> <a href="{% url 'edit-rest' rest.id %}">
+                    <button type="button">Edit</button> </a> </td>
             <td> <button type="button">Delete</button> </td>
         </tr>
         {% endfor %}
