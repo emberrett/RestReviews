@@ -1,6 +1,5 @@
-from http.client import HTTPResponse
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
@@ -25,6 +24,16 @@ def add_rest(request):
 
     return render(request, 'add-rest.html', {'form': form})
 
+@login_required(login_url='/accounts/login')
+def delete_rest(request, id):
+    obj = Rest.objects.filter(id=id)
+    if not obj.exists():
+        return HttpResponseBadRequest(f'Rest with ID "{id}" does not exist.')
+    if obj.values()[0]['user'] == str(request.user):
+        obj.delete()
+    else:
+        return HttpResponseForbidden('Unauthorized',status=401)
+    return HttpResponseRedirect('../my-rests') 
 
 @login_required(login_url='/accounts/login')
 def edit_rest(request, id):
