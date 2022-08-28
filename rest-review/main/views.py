@@ -1,5 +1,6 @@
+from http.client import HTTPResponse
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
@@ -29,6 +30,8 @@ def add_rest(request):
 def edit_rest(request, id):
 
     obj = get_object_or_404(Rest, id=id)
+    if obj.user != str(request.user):
+        return HttpResponseForbidden('Unauthorized',status=401)
     if request.method == 'POST':
         form = AddRest(request.POST, instance=obj)
         form.user = request.user
@@ -37,7 +40,9 @@ def edit_rest(request, id):
             obj.save()
         return HttpResponseRedirect('/my-rests')
     else:
+        
         form = AddRest(instance=obj)
+        
     submit_path = f'/edit-rest/{id}'
     return render(request, f'edit-rest.html', {'form': form, submit_path: submit_path})
 
