@@ -11,7 +11,7 @@
             <ul>
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="add-rest">Add a Restaraunt</a>
+                    <a href="../add-rest">Add a Restaraunt</a>
                 </li>
                 <li>
                     <a href="accounts/logout">logout</a>
@@ -32,6 +32,7 @@
             <th>Restaraunt</th>
             <th>Rating</th>
             <th>Category</th>
+            <th>Street</th>
             <th>City</th>
             <th>State</th>
             <th>Postal Code</th>
@@ -42,6 +43,7 @@
         <tr>
             <td> {{rest.restaraunt}} </td>
             <td> {{rest.rating}} </td>
+            <td> {{rest.category}}</td>
             <td> {{rest.street_address}} </td>
             <td> {{rest.city}} </td>
             <td> {{rest.state}} </td>
@@ -55,7 +57,14 @@
         </tr>
         {% endfor %}
     </table>
-
+    {% if has_back %}
+    <a href="{% url 'my-rests' back_page %}">
+        <button type="button">Back</button>
+    {%endif%}
+    {% if has_next %}
+    <a href="{% url 'my-rests' next_page %}">
+        <button type="button">Next</button>
+    {%endif%}
 </body>
 
 </html>
