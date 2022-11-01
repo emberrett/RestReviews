@@ -1,40 +1,9 @@
-<html>
-
-<head>
-    <title>Add a restaraunt</title>
-</head>
-
-<body>
-    <nav>
-        <a href="/">rest-review</a>
-        <div>
-            <ul>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="../../my-rests">My Restaraunts</a>
-                </li>
-                <li>
-                    <a href="../../add-rest">Add a Restaraunt</a>
-                </li>
-                <li>
-                    <a href="../../accounts/logout">Logout</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="accounts/register">Sign Up</a>
-                </li>
-                <li>
-                    <a href="accounts/login">Login</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+{% extends 'base.html' %}
+{% block title %}edit-rest{% endblock %}
+{% block content %}
     <form action="{{submit_path}}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Save">
     </form>
-</body>
-
-</html>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>{% block title %} rest-review {% endblock %}</title>
+</head>
+
+<body>
+  <nav>
+    <a href="//127.0.0.1:8000/my-rests/1">rest-review</a>
+    <div>
+      <ul>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="//127.0.0.1:8000/my-rests/1">My Restaraunts</a>
+        </li>
+        {% if request.path != "/add-rest" %}
+        <li>
+          <a href="//127.0.0.1:8000/add-rest">Add a Restaraunt</a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="//127.0.0.1:8000/accounts/logout">Logout</a>
+        </li>
+        {% else %}
+        <li>
+          <a href="//127.0.0.1:8000/registration/signup">Sign Up</a>
+        </li>
+        <li>
+          <a href="//127.0.0.1:8000/accounts/login">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  {% block content %}
+  {% endblock %}
+</body>
+
+</html>

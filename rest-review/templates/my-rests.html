@@ -1,32 +1,6 @@
-<html>
-
-<head>
-    <title>My restaraunts</title>
-</head>
-
-<body>
-    <nav>
-        <a href="/">rest-review</a>
-        <div>
-            <ul>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="../add-rest">Add a Restaraunt</a>
-                </li>
-                <li>
-                    <a href="accounts/logout">logout</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="accounts/register">sign up</a>
-                </li>
-                <li>
-                    <a href="accounts/login">login</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+{% extends 'base.html' %}
+{% block title %}add-rest{% endblock %}
+{% block content %}
     <table>
         <tr>
             <th>Restaraunt</th>
@@ -65,6 +39,4 @@
     <a href="{% url 'my-rests' next_page %}">
         <button type="button">Next</button>
     {%endif%}
-</body>
-
-</html>
+{%endblock%}
