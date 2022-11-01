@@ -1,37 +1,11 @@
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <title>Add a restaraunt</title>
-</head>
+{% block title %}add-rest{% endblock title %}
 
-<body>
-    <nav>
-        <a href="/">rest-review</a>
-        <div>
-            <ul>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="my-rests/1">My Restaraunts</a>
-                </li>
-                <li>
-                    <a href="accounts/logout">Logout</a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="accounts/register">Sign Up</a>
-                </li>
-                <li>
-                    <a href="accounts/login">Login</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+{% block content %}
     <form action="/add-rest" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit">
     </form>
-</body>
-
-</html>
+{% endblock content %}

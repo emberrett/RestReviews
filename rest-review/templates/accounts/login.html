@@ -1,19 +1,8 @@
-<!doctype html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block title %}LOGIN{% endblock %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>LOGIN</title>
-</head>
-
-<body>
+{% block content %}
     <div class="mx-auto" style="width: 500px" ;>
         <form action="login" method="post" class="form-horizontal">
             {% csrf_token%}
@@ -40,6 +29,4 @@
             </div>
         </form>
 
-</body>
-
-</html>
+{% endblock content %}

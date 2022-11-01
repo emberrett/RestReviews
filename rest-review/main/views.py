@@ -68,8 +68,6 @@ def show_rest(request, page):
     rests = Rest.objects.filter(user=request.user).order_by('id')[
         start_index: start_index + rows_per_page]
     total_results = Rest.objects.filter(user=request.user).count()
-    print(page)
-    print(total_results/rows_per_page*page)
     has_next = False
     if total_results > rows_per_page * page:
         has_next = True
