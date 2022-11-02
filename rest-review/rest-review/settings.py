@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 # Application definition
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'accounts',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rest-review.urls'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
 
 TEMPLATES = [
    {
