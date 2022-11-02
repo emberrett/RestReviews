@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# email folder
+sent_emails
+
+.DS_Store
