@@ -14,8 +14,18 @@ def homepage(request):
 def add_rest(request):
     if request.method == 'POST':
         form = AddRest(request.POST)
+        lat = request.POST.get('latitude', None)
+        long = request.POST.get('longitude', None)
+        address = request.POST.get('address',None)
+        rating = request.POST.get('rating',None)
+        rest = request.POST.get('rest',None)
         if form.is_valid():
             obj = form.save(commit=False)
+            obj.longitude = lat
+            obj.latitude = long
+            obj.address = address
+            obj.rating = rating
+            obj.rest = rest
             obj.user = request.user
             obj.save()
         return HttpResponseRedirect('my-rests/1')

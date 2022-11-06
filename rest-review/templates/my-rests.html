@@ -4,28 +4,22 @@
 
 
 {% block content %}
-    <table>
+    <table border="1">
         <tr>
             <th>Restaraunt</th>
             <th>Rating</th>
+            <th>My Rating</th>
             <th>Category</th>
-            <th>Street</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Postal Code</th>
-            <th>Drive Time</th>
+            <th>Address</th>
             <th>Notes</th>
         </tr>
         {% for rest in rests %}
         <tr>
-            <td> {{rest.restaraunt}} </td>
+            <td> {{rest.rest}} </td>
             <td> {{rest.rating}} </td>
+            <td> {{rest.my_rating}} </td>
             <td> {{rest.category}}</td>
-            <td> {{rest.street_address}} </td>
-            <td> {{rest.city}} </td>
-            <td> {{rest.state}} </td>
-            <td> {{rest.postal_code}} </td>
-            <td> {{rest.drive_time}} </td>
+            <td> {{rest.address}} </td>
             <td> {{rest.notes}} </td>
             <td> <a href="{% url 'edit-rest' rest.id %}">
                     <button type="button">Edit</button> </a> </td>
