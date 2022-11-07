@@ -1,12 +1,4 @@
-{% extends 'base.html' %}
-
-{% block title %}edit-rest{% endblock title %}
-
-
-{% block content %}
-    <form action="{{submit_path}}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Save">
-    </form>
-{% endblock content %}
+{% extends 'rest-base.html' %}
+{% block place_search %}
+<input id="searchTextField" type="text" size="50" value="{{address}}">
+{% endblock place_search %}

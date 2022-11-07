@@ -13,26 +13,63 @@ def homepage(request):
 @login_required(login_url='/accounts/login')
 def add_rest(request):
     if request.method == 'POST':
-        form = AddRest(request.POST)
-        lat = request.POST.get('latitude', None)
-        long = request.POST.get('longitude', None)
-        address = request.POST.get('address',None)
-        rating = request.POST.get('rating',None)
-        rest = request.POST.get('rest',None)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.longitude = lat
-            obj.latitude = long
-            obj.address = address
-            obj.rating = rating
-            obj.rest = rest
-            obj.user = request.user
-            obj.save()
+        rest_post(request)
         return HttpResponseRedirect('my-rests/1')
     else:
         form = AddRest()
 
     return render(request, 'add-rest.html', {'form': form})
+
+
+def rest_post(request, initial_obj=None):
+    if initial_obj:
+        form = AddRest(request.POST, instance=initial_obj)
+    else:
+        form = AddRest(request.POST)
+
+    if id:
+        if not request.POST.get('latitude'):
+            lat = initial_obj.latitude
+            long = initial_obj.longitude
+            address = initial_obj.address
+            rating = initial_obj.rating
+            rest = initial_obj.rest
+
+        else:
+            lat = request.POST.get('latitude', None)
+            long = request.POST.get('longitude', None)
+            address = request.POST.get('address', None)
+            rating = request.POST.get('rating', None)
+            if rating == 'undefined':
+                rating = 0
+            rest = request.POST.get('rest', None)
+
+    if form.is_valid():
+        new_obj = form.save(commit=False)
+        new_obj.latitude = lat
+        new_obj.longitude = long
+        new_obj.address = address
+        new_obj.rating = rating
+        new_obj.rest = rest
+        new_obj.user = str(request.user)
+        new_obj.save()
+
+
+@login_required(login_url='/accounts/login')
+def edit_rest(request, id):
+
+    obj = get_object_or_404(Rest, id=id)
+    if obj.user != str(request.user):
+        return HttpResponseForbidden('Unauthorized', status=401)
+    if request.method == 'POST':
+        rest_post(request, initial_obj=obj)
+        return HttpResponseRedirect('/my-rests/1')
+    else:
+        form = AddRest(instance=obj)
+        address = obj.address
+
+    submit_path = f'/edit-rest/{id}'
+    return render(request, f'edit-rest.html', {'form': form, submit_path: submit_path, 'address': address})
 
 
 @login_required(login_url='/accounts/login')
@@ -45,27 +82,6 @@ def delete_rest(request, id):
     else:
         return HttpResponseForbidden('Unauthorized', status=401)
     return HttpResponseRedirect('../my-rests/1')
-
-
-@login_required(login_url='/accounts/login')
-def edit_rest(request, id):
-
-    obj = get_object_or_404(Rest, id=id)
-    if obj.user != str(request.user):
-        return HttpResponseForbidden('Unauthorized', status=401)
-    if request.method == 'POST':
-        form = AddRest(request.POST, instance=obj)
-        form.user = request.user
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.save()
-        return HttpResponseRedirect('/my-rests/1')
-    else:
-
-        form = AddRest(instance=obj)
-
-    submit_path = f'/edit-rest/{id}'
-    return render(request, f'edit-rest.html', {'form': form, submit_path: submit_path})
 
 
 @login_required(login_url='/accounts/login')

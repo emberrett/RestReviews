@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}add-rest{% endblock title %}
+{% block title %}rest-base{% endblock title %}
 {% block head_extra %}
 
 <script
@@ -10,8 +10,11 @@
 {% endblock head_extra %}
 
 {% block content %}
+{% block place_search %}
 <input id="searchTextField" type="text" size="50">
-<form action="/add-rest" method="post">
+{% endblock place_search %}
+
+<form action="{{submit_path}}" method="post">
     {% csrf_token %}
     {{form}}
     <input type="hidden" id="address" name="address" />
