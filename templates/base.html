@@ -2,52 +2,45 @@
 <html lang="en">
 
 <head>
-    
+    {% load static %}
     <title>
         {% block title %}base-template{% endblock title %}
     </title>
-    
-    <!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://kit.fontawesome.com/{{FA_KEY}}.js" crossorigin="anonymous"></script>
     {% block head_extra %}{% endblock head_extra %}
 </head>
 
 <body>
-    <nav>
-        <a href="//127.0.0.1:8000">rest-review</a>
-        <div>
-            <ul>
-                {% if user.is_authenticated %}
-                    <li>
-                        <a href="//127.0.0.1:8000/my-rests/1">My Restaraunts</a>
-                    </li>
-                    {% if request.path != "/add-rest" %}
-                        <li>
-                            <a href="//127.0.0.1:8000/add-rest">Add a Restaraunt</a>
-                        </li>
-                    {% endif %}
-                    <li>
-                        <a href="//127.0.0.1:8000/accounts/logout">Logout</a>
-                    </li>
-                {% else %}
-                    {% if request.path != "/accounts/register" %}
-                        <li>
-                            <a href="//127.0.0.1:8000/accounts/register">Sign Up</a>
-                        </li>
-                    {% endif %}
-                    {% if request.path != "/accounts/login" %}
-                        <li>
-                            <a href="//127.0.0.1:8000/accounts/login">Login</a>
-                        </li>
-                        {% endif %}
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+    <div class="topnav">
+        <a href="//127.0.0.1:8000">Rest-Review</a>
+
+        {% if user.is_authenticated %}
+
+        <a href="//127.0.0.1:8000/my-rests/1">My Restaraunts</a>
+
+        {% if request.path != "/add-rest" %}
+
+        <a href="//127.0.0.1:8000/add-rest">Add a Restaraunt</a>
+
+        {% endif %}
+
+        <a href="//127.0.0.1:8000/accounts/logout">Logout</a>
+
+        {% else %}
+        {% if request.path != "/accounts/register" %}
+
+        <a href="//127.0.0.1:8000/accounts/register">Sign Up</a>
+
+        {% endif %}
+        {% if request.path != "/accounts/login" %}
+
+        <a href="//127.0.0.1:8000/accounts/login">Login</a>
+
+        {% endif %}
+        {% endif %}
+
+    </div>
+
     {% block content %}
     {% endblock content %}

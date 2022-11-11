@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
 from django.contrib.auth.decorators import login_required
+import math
 
 
 def homepage(request):
@@ -86,6 +87,8 @@ def delete_rest(request, id):
 
 @login_required(login_url='/accounts/login')
 def show_rest(request, page):
+
+
     # only get 25 results at a time, or do we just fill the page?
     start_index = 0
     rows_per_page = 10
@@ -94,13 +97,15 @@ def show_rest(request, page):
     rests = Rest.objects.filter(user=request.user).order_by('id')[
         start_index: start_index + rows_per_page]
     total_results = Rest.objects.filter(user=request.user).count()
+    if not total_results:
+        return HttpResponseRedirect('/add-rest')
     has_next = False
     if total_results > rows_per_page * page:
         has_next = True
     has_back = False
     if page > 1:
         has_back = True
-
+    total_pages = math.ceil(total_results / rows_per_page)
     return render(request, 'my-rests.html',
                   {
                       'rests': rests,
@@ -108,6 +113,8 @@ def show_rest(request, page):
                       'has_next': has_next,
                       'has_back': has_back,
                       'next_page': page + 1,
-                      'back_page': page - 1
+                      'back_page': page - 1,
+                      'total_results': total_results,
+                      'total_pages': total_pages
                   }
                   )

@@ -4,7 +4,9 @@
 
 
 {% block content %}
-    <table border="1">
+<div class="centered">
+    <h1 style="margin-top:50px;">My Restaraunts</h1>
+    <table>
         <tr>
             <th>Restaraunt</th>
             <th>Rating</th>
@@ -12,6 +14,8 @@
             <th>Category</th>
             <th>Address</th>
             <th>Notes</th>
+            <th class="no-border"></th>
+            <th class="no-border"></th>
         </tr>
         {% for rest in rests %}
         <tr>
@@ -21,19 +25,35 @@
             <td> {{rest.category}}</td>
             <td> {{rest.address}} </td>
             <td> {{rest.notes}} </td>
-            <td> <a href="{% url 'edit-rest' rest.id %}">
-                    <button type="button">Edit</button> </a> </td>
-            <td> <a href="{% url 'delete-rest' rest.id %}" onclick="return confirm('Are you sure?')">
-                    <button type="button">Delete</button> </a> </td>
+            <td class="no-border"> <a href="{% url 'edit-rest' rest.id %}">
+                    <i class="fa fa-pen-to-square fa_custom"></i></a></td>
+            <td class="no-border"> <a href="{% url 'delete-rest' rest.id %}" onclick="return confirm('Are you sure?')">
+                    <i class="fa fa-regular fa-trash fa_custom"></i></a> </td>
         </tr>
         {% endfor %}
     </table>
-    {% if has_back %}
-    <a href="{% url 'my-rests' back_page %}">
-        <button type="button">Back</button>
-    {%endif%}
-    {% if has_next %}
-    <a href="{% url 'my-rests' next_page %}">
-        <button type="button">Next</button>
-    {%endif%}
+
+    <div id="container">
+        <div id="left">
+            {% if has_back %}
+            <a href="{% url 'my-rests' back_page %}">
+                <button type="button" class="button">Back</button>
+            </a>
+            {%endif%}
+        </div>
+        <div id="right">
+            {% if has_next %}
+            <a href="{% url 'my-rests' next_page %}">
+                <button type="button" class="button">Next</button></a>
+            {%endif%}
+        </div>
+        <div id="center">
+            <p>Page {{page}} of {{total_pages}}</p>
+        </div>
+    </div>
+
+
+
+</div>
+
 {% endblock content %}

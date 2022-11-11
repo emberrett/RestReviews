@@ -1,53 +1,43 @@
 {% extends 'base.html' %}
 
-    
-    
-{% block title %}SIGNUP{% endblock %}
+
+
+{% block title %}SignUp{% endblock %}
 
 
 {% block content %}
-	<form action="/accounts/register" method="POST" class="form-horizontal">
-		{% csrf_token%}
-		<div class="mx-auto" style="width: 400px;">
+<form action="/accounts/register" method="POST" class="form-horizontal">
+	{% csrf_token%}
+	<div class="centered account-form-div">
+		<div>
+			<div>
+				<h2 style="text-align:center;">Register</h2>
+				<input type="text" class="account-form" name="first_name" id="first_name" placeholder="First Name" Required>
 
-			<div class="col-xs-8 col-xs-offset-4">
-				<h2 style="text-align:center;">SIGN UP</h2>
 			</div>
-			<hr />
-			<div class="form-group">
-				<label for="fanme">First Name</label>
-				<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name"
+			<input type="text" class="account-form" name="last_name" id="last_name" placeholder="Last Name" Required>
+			<div>
+				<input type="email" class="account-form" name="email" id="email" placeholder="Enter email" Required>
+			</div>
+			<div>
+				<input type="password" class="account-form" name="password" id="password" placeholder="Enter Password"
 					Required>
 			</div>
-			<div class="form-group">
-				<label for="lname">Last Name</label>
-				<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name"
-					Required>
-			</div>
-			<div class="form-group">
-				<label for="email">Email address</label>
-				<input type="email" class="form-control" name="email" id="email" placeholder="Enter email" Required>
-			</div>
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password"
-					Required>
-			</div>
-			<div class="form-group">
-				<label for="confirm_password">Confirm Password</label>
-				<input type="password" class="form-control" name="confirm_password" id="confirm_password"
+			<div>
+				<input type="password" class="account-form" name="confirm_password" id="confirm_password"
 					placeholder="Confirm Your Password" Required>
 			</div>
-			<button type="submit" class="btn btn-primary">SIGNUP</button>
-			<a class="btn btn-dark" href="login" role="button">LOGIN</a>
+			<div>
+				<button type="submit" class="button" style="margin-top: 30px">SIGNUP</button>
+			</div>
 		</div>
-	</form>
-	<div class="form-group">
-		{% for message in messages %}
-		<div class="alert alert-danger" role="alert">
-			{{message}}
-		</div>
-		{% endfor %}
+</form>
+<div class="form-group">
+	{% for message in messages %}
+	<div class="alert alert-danger" role="alert">
+		{{message}}
 	</div>
+	{% endfor %}
+</div>
 
 {% endblock content %}

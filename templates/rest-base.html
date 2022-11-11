@@ -1,27 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}rest-base{% endblock title %}
-{% block head_extra %}
 
+{% block head_extra %}
+{% load static %}
 <script
     src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&v=3.exp&sensor=false&libraries=places"></script>
-{% load static %}
-<script src="{% static "js/find_place.js" %}" type="text/javascript"></script>
+<script src="{% static " js/find_place.js" %}" type="text/javascript"></script>
 
 {% endblock head_extra %}
 
 {% block content %}
-{% block place_search %}
-<input id="searchTextField" type="text" size="50">
-{% endblock place_search %}
 
-<form action="{{submit_path}}" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="hidden" id="address" name="address" />
-    <input type="hidden" id="rest" name="rest" />
-    <input type="hidden" id="rating" name="rating" />
-    <input type="hidden" id="latitude" name="latitude" />
-    <input type="hidden" id="longitude" name="longitude" />
-    <input type="submit" value="Submit">
-</form>
+
+<div class="centered">
+    {% if 'add' in request.path %}
+    <h1>Add a Restaraunt</h1>
+    {%else%}
+    <h1>Edit a Restaraunt</h1>
+    {%endif%}
+    <form action="{{submit_path}}" method="post">
+        <label>Search:
+            {% if 'add' in request.path %}
+            <input id="searchTextField" type="text" size="50">
+            {%else%}
+            <input id="searchTextField" type="text" size="50" value="{{address}}">
+            {%endif%}
+        </label>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="hidden" id="address" name="address" />
+        <input type="hidden" id="rest" name="rest" />
+        <input type="hidden" id="rating" name="rating" />
+        <input type="hidden" id="latitude" name="latitude" />
+        <input type="hidden" id="longitude" name="longitude" />
+        <button class="button submit-rest-button" type="submit">Save Rest</button>
+    </form>
+</div>
 {% endblock content %}
