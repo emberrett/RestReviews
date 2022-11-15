@@ -18,8 +18,8 @@ def add_rest(request):
         return HttpResponseRedirect('my-rests/1')
     else:
         form = AddRest()
-
-    return render(request, 'add-rest.html', {'form': form})
+    categories = get_categories(request.user)
+    return render(request, 'add-rest.html', {'form': form, 'categories': categories})
 
 
 def rest_post(request, initial_obj=None):
@@ -27,6 +27,11 @@ def rest_post(request, initial_obj=None):
         form = AddRest(request.POST, instance=initial_obj)
     else:
         form = AddRest(request.POST)
+    print(request.POST)
+    if request.POST.get('category_dropdown'):
+        category = request.POST.get('category_dropdown', None)
+    else:
+        category = request.POST.get('category_text', None)
 
     if id:
         if not request.POST.get('latitude'):
@@ -52,13 +57,20 @@ def rest_post(request, initial_obj=None):
         new_obj.address = address
         new_obj.rating = rating
         new_obj.rest = rest
+        new_obj.category = category
         new_obj.user = str(request.user)
         new_obj.save()
 
 
+def get_categories(user):
+    categories = Rest.objects.filter(user=user).values('category').distinct()
+    category_list = sorted([row["category"]
+                           for row in categories], key=str.casefold)
+    return category_list
+
+
 @login_required(login_url='/accounts/login')
 def edit_rest(request, id):
-
     obj = get_object_or_404(Rest, id=id)
     if obj.user != str(request.user):
         return HttpResponseForbidden('Unauthorized', status=401)
@@ -68,13 +80,18 @@ def edit_rest(request, id):
     else:
         form = AddRest(instance=obj)
         address = obj.address
-
+    categories = get_categories(request.user)
     submit_path = f'/edit-rest/{id}'
-    return render(request, f'edit-rest.html', {'form': form, submit_path: submit_path, 'address': address})
+    return render(request, f'edit-rest.html', {'form': form, 
+                                                submit_path: submit_path, 
+                                                'address': address, 
+                                                'categories': categories, 
+                                                'current_category': obj.category})
 
 
 @login_required(login_url='/accounts/login')
 def delete_rest(request, id):
+    print(request.path)
     obj = Rest.objects.filter(id=id)
     if not obj.exists():
         return HttpResponseBadRequest(f'Rest with ID "{id}" does not exist.')
@@ -82,12 +99,12 @@ def delete_rest(request, id):
         obj.delete()
     else:
         return HttpResponseForbidden('Unauthorized', status=401)
-    return HttpResponseRedirect('../my-rests/1')
+    print(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required(login_url='/accounts/login')
 def show_rest(request, page):
-
 
     # only get 25 results at a time, or do we just fill the page?
     start_index = 0

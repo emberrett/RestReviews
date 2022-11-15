@@ -122,12 +122,26 @@ body {
 }
 
 
+.category_radio{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#category_text{
+  margin-left:10px;
+}
+
+#category_dropdown{
+  margin-left:10px;
+}
+
+
 .button {
   background-color: #4ca0af; 
   border: none;
   color: white;
   padding: 10px 16px;
-  margin-top: 10px;
+  margin-top: 15px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
