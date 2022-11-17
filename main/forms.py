@@ -6,5 +6,5 @@ from django.shortcuts import render
 
 class AddRest(ModelForm):
     class Meta:
-        exclude = ["id", "user", "address", "rest","rating", "latitude", "longitude", "category"]
+        exclude = ["id", "user", "address", "rest","rating", "latitude", "longitude", "category", "my_rating","notes"]
         model = Rest

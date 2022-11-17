@@ -47,17 +47,22 @@ def rest_post(request, initial_obj=None):
             address = request.POST.get('address', None)
             rating = request.POST.get('rating', None)
             if rating == 'undefined':
-                rating = 0
+                rating = None
             rest = request.POST.get('rest', None)
+    my_rating=None
+    if request.POST.get('tried_radio') == 'true':
+        my_rating=request.POST.get('my_rating')
 
     if form.is_valid():
         new_obj = form.save(commit=False)
         new_obj.latitude = lat
+        new_obj.notes = request.POST.get('notes')
         new_obj.longitude = long
         new_obj.address = address
         new_obj.rating = rating
         new_obj.rest = rest
         new_obj.category = category
+        new_obj.my_rating = my_rating
         new_obj.user = str(request.user)
         new_obj.save()
 
@@ -72,17 +77,18 @@ def get_categories(user):
 @login_required(login_url='/accounts/login')
 def edit_rest(request, id):
     obj = get_object_or_404(Rest, id=id)
+    print(obj)
     if obj.user != str(request.user):
         return HttpResponseForbidden('Unauthorized', status=401)
     if request.method == 'POST':
         rest_post(request, initial_obj=obj)
         return HttpResponseRedirect('/my-rests/1')
     else:
-        form = AddRest(instance=obj)
         address = obj.address
+        my_rating = obj.my_rating
     categories = get_categories(request.user)
     submit_path = f'/edit-rest/{id}'
-    return render(request, f'edit-rest.html', {'form': form, 
+    return render(request, f'edit-rest.html', {'my_rating': my_rating, 
                                                 submit_path: submit_path, 
                                                 'address': address, 
                                                 'categories': categories, 
