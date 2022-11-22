@@ -24,17 +24,31 @@
 td,
 th {
   border: 0.5px solid;
+  max-width: 150px;
 }
 
 td {
   padding: 4px;
   text-overflow: hidden;
-  overflow: auto;
+  overflow-y: scroll;
 }
+
+.table-row{
+  height:30px;
+  
+}
+
+table {
+  border-spacing: 0;
+  margin-top: 3%;
+  width:100%;
+}
+
 
 th {
   padding: 1px 5px 1px 5px;
   font-size: 18px;
+  min-width: 20px;
 }
 
 th:nth-last-child(1),
@@ -74,16 +88,6 @@ tbody tr:nth-child(even) {
   margin-right: 0;
 }
 
-table {
-  border-spacing: 0;
-  margin-top: 3%;
-  width: 100%;
-  table-layout: fixed;
-}
-
-tr {
-  height: 1em;
-}
 
 
 #container {
@@ -258,3 +262,7 @@ input[type=submit] {
   vertical-align: middle;
 }
 
+.sortable-columns {
+  text-decoration: none;
+  color: black;
+}

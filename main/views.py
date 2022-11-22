@@ -5,6 +5,8 @@ from .forms import AddRest
 from .models import Rest
 from django.contrib.auth.decorators import login_required
 import math
+from django.db.models import F
+
 
 
 def homepage(request):
@@ -86,10 +88,12 @@ def edit_rest(request, id):
     else:
         address = obj.address
         my_rating = obj.my_rating
+        notes = obj.notes
     categories = get_categories(request.user)
     submit_path = f'/edit-rest/{id}'
-    return render(request, f'edit-rest.html', {'my_rating': my_rating, 
-                                                submit_path: submit_path, 
+    return render(request, f'edit-rest.html', {'my_rating': my_rating,
+                                                submit_path: submit_path,
+                                                'notes': notes,
                                                 'address': address, 
                                                 'categories': categories, 
                                                 'current_category': obj.category})
@@ -111,13 +115,23 @@ def delete_rest(request, id):
 
 @login_required(login_url='/accounts/login')
 def show_rest(request, page):
-
-    # only get 25 results at a time, or do we just fill the page?
     start_index = 0
     rows_per_page = 10
+    
+    order = request.GET.get('order')
+    order_list= []
+    if order:
+        for col in order.split(','):
+            if col.startswith('-'):
+                order_list.append(f"F('{str(col.replace('-',''))}').desc(nulls_last=True)")
+            else:
+                order_list.append(f"F('{str(col)}').asc(nulls_first=True)")
+    else:
+        order_list.append("F('id').asc(nulls_last=True)")
+    order_list = "[" + ",".join(order_list) +  "]"
     if page > 1:
         start_index = ((page - 1) * rows_per_page)
-    rests = Rest.objects.filter(user=request.user).order_by('id')[
+    rests = Rest.objects.filter(user=request.user).order_by(*eval(order_list))[
         start_index: start_index + rows_per_page]
     total_results = Rest.objects.filter(user=request.user).count()
     if not total_results:
@@ -129,15 +143,23 @@ def show_rest(request, page):
     if page > 1:
         has_back = True
     total_pages = math.ceil(total_results / rows_per_page)
+
+  
+
     return render(request, 'my-rests.html',
-                  {
-                      'rests': rests,
-                      'page': page,
-                      'has_next': has_next,
-                      'has_back': has_back,
-                      'next_page': page + 1,
-                      'back_page': page - 1,
-                      'total_results': total_results,
-                      'total_pages': total_pages
-                  }
-                  )
+                {
+                    'rests': rests,
+                    'page': page,
+                    'has_next': has_next,
+                    'has_back': has_back,
+                    'next_page': page + 1,
+                    'back_page': page - 1,
+                    'total_results': total_results,
+                    'total_pages': total_pages
+                }
+                )
+    # add to order query from current page
+    # add to query if order query exists, if not start it
+    # if col already in query, reset and order by that col,
+    # if clicked col is at end of query and asc, switch to desc, else turn off order
+

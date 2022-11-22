@@ -11,7 +11,6 @@
 {% block content %}
 
 <div class="rest-form">
-
     <div class="rest-form-inner">
         <div style="text-align: center;">
             {% if 'add' in request.path %}
@@ -91,7 +90,7 @@
                 <div>
                     <input type="radio" id="existing_category_radio" class="category_radio" name="category_radio" />
                     <label for="existing_category_radio">Create New category
-                    <input type="text" id="category_text" name="category_text" disabled />
+                        <input type="text" id="category_text" name="category_text" disabled />
                     </label>
                 </div>
                 {%else%}
@@ -99,8 +98,8 @@
                     <input type="radio" id="new_category_radio" class="new_category_radio" name="category_radio" checked
                         required />
                     <label for="new_category_radio">Create New Category
-                    <input type="text" id="category_text" name="category_text" />
-                </label>
+                        <input type="text" id="category_text" name="category_text" />
+                    </label>
                 </div>
                 {%endif%}
 
@@ -123,26 +122,24 @@
             {%endif%}
             <script src="{% static 'js/category_dropdown.js' %}" type="text/javascript"></script>
             <div>
+                {% if notes %}
+                <textarea rows="4" cols="40" id="notes" name="notes">{{notes}}</textarea>
+                {%else%}
                 <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes"></textarea>
+                {%endif%}
             </div>
             <input type="hidden" id="address" name="address" />
             <input type="hidden" id="rest" name="rest" />
             <input type="hidden" id="rating" name="rating" />
             <input type="hidden" id="latitude" name="latitude" />
             <input type="hidden" id="longitude" name="longitude" />
-            {%if 'edit' in request.path %}
-            <script>
-                address = document.getElementById("address");
-                address.value = "{{form.address}}";
-                rest = document.getElementById("rest");
-                rest.value = "{{form.rest}}";
-
-            </script>
-            {%endif%}
             <div style="text-align: right;">
                 <button class="button submit-rest-button" type="submit">Save Rest</button>
             </div>
         </form>
+
+
     </div>
 </div>
+
 {% endblock content %}

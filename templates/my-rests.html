@@ -1,38 +1,56 @@
 {% extends 'base.html' %}
 
 {% block title %}my-rests{% endblock title %}
-
+{% load static %}
 
 {% block content %}
 <div class="centered">
     <div class="rest-children"></div>
     <h1 style="margin-top:50px;">My Restaraunts</h1>
-    <table>
-        <tr>
-            <th>Restaraunt</th>
-            <th>Rating</th>
-            <th>My Rating</th>
-            <th>Category</th>
-            <th>Address</th>
-            <th>Notes</th>
-            <th class="no-border"></th>
-            <th class="no-border"></th>
-        </tr>
-        {% for rest in rests %}
-        <tr>
-            <td> {{rest.rest}} </td>
-            <td> {{rest.rating}} </td>
-            <td> {{rest.my_rating}} </td>
-            <td> {{rest.category}}</td>
-            <td> {{rest.address}} </td>
-            <td> {{rest.notes}} </td>
-            <td class="no-border"> <a href="{% url 'edit-rest' rest.id %}">
-                    <i class="fa fa-pen-to-square fa_custom"></i></a></td>
-            <td class="no-border"> <a href="{% url 'delete-rest' rest.id %}" onclick="return confirm('Are you sure?')">
-                    <i class="fa fa-regular fa-trash fa_custom"></i></a> </td>
-        </tr>
-        {% endfor %}
-    </table>
+        <table>
+            <tr>
+                <th><a class="sortable-columns" id="rest">Rest</a></th>
+                <th><a class="sortable-columns" id="my_rating">My Rating</a></th>
+                <th><a class="sortable-columns" id="rating">Rating</a></th>
+                <th><a class="sortable-columns" id="category">Category</a></th>
+                <th style="font-weight:lighter">Address</th>
+                <th style="font-weight:lighter">Notes</th>
+                <th class="no-border"></th>
+                <th class="no-border"></th>
+
+
+
+            </tr>
+            {% for rest in rests %}
+            <tr>
+                <td>
+                    <div class="table-row"> {{rest.rest}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.rating}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.my_rating}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.category}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.address}}</div>
+                </td>
+                <td>
+                    <div style="text-align: left" class="table-row">{{rest.notes}}</div>
+                </td>
+                <td class="no-border"> <a href="{% url 'edit-rest' rest.id %}">
+                        <i class="fa fa-pen-to-square fa_custom"></i></a></td>
+                <td class="no-border"> <a href="{% url 'delete-rest' rest.id %}"
+                        onclick="return confirm('Are you sure?')">
+                        <i class="fa fa-regular fa-trash fa_custom"></i></a> </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
 
     <div id="container">
         <div id="left">
