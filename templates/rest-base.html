@@ -134,7 +134,11 @@
             <input type="hidden" id="latitude" name="latitude" />
             <input type="hidden" id="longitude" name="longitude" />
             <div style="text-align: right;">
-                <button class="button submit-rest-button" type="submit">Save Rest</button>
+                {%if 'edit' in request.path %}
+                <a href="{% url 'delete-rest' id %}">
+                    <button type="button" class="button submit-delete-button">Delete</button></a>
+                {%endif%}
+                <button class="button submit-rest-button" type="submit">Save</button>
             </div>
         </form>
 

@@ -89,10 +89,12 @@ def edit_rest(request, id):
         address = obj.address
         my_rating = obj.my_rating
         notes = obj.notes
+        id = obj.pk
     categories = get_categories(request.user)
     submit_path = f'/edit-rest/{id}'
     return render(request, f'edit-rest.html', {'my_rating': my_rating,
                                                 submit_path: submit_path,
+                                                'id':id,
                                                 'notes': notes,
                                                 'address': address, 
                                                 'categories': categories, 
@@ -110,7 +112,7 @@ def delete_rest(request, id):
     else:
         return HttpResponseForbidden('Unauthorized', status=401)
     print(request.META.get('HTTP_REFERER'))
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect('/my-rests/1')
 
 
 @login_required(login_url='/accounts/login')
