@@ -296,3 +296,11 @@ input[type=submit] {
   font-weight: lighter;
   color: #f2f2f2;
 }
+
+.starting_location_search{
+  width: 25%;
+}
+
+.my-rests-title-row{
+  margin-top:50px;
+}

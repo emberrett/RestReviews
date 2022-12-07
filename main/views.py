@@ -5,8 +5,9 @@ from .forms import AddRest
 from .models import Rest
 from django.contrib.auth.decorators import login_required
 import math
-from django.db.models import F
-
+from django.db.models import F, Value, DecimalField
+from math import radians, cos, sin, asin, sqrt
+from django.db.models.functions import Abs
 
 
 def homepage(request):
@@ -51,9 +52,9 @@ def rest_post(request, initial_obj=None):
             if rating == 'undefined':
                 rating = None
             rest = request.POST.get('rest', None)
-    my_rating=None
+    my_rating = None
     if request.POST.get('tried_radio') == 'true':
-        my_rating=request.POST.get('my_rating')
+        my_rating = request.POST.get('my_rating')
 
     if form.is_valid():
         new_obj = form.save(commit=False)
@@ -93,12 +94,12 @@ def edit_rest(request, id):
     categories = get_categories(request.user)
     submit_path = f'/edit-rest/{id}'
     return render(request, f'edit-rest.html', {'my_rating': my_rating,
-                                                submit_path: submit_path,
-                                                'id':id,
-                                                'notes': notes,
-                                                'address': address, 
-                                                'categories': categories, 
-                                                'current_category': obj.category})
+                                               submit_path: submit_path,
+                                               'id': id,
+                                               'notes': notes,
+                                               'address': address,
+                                               'categories': categories,
+                                               'current_category': obj.category})
 
 
 @login_required(login_url='/accounts/login')
@@ -116,24 +117,49 @@ def delete_rest(request, id):
 
 
 @login_required(login_url='/accounts/login')
-def show_rest(request, page):
+def show_rest(request):
     start_index = 0
     rows_per_page = 10
-    
+    page = request.GET.get("page")
+    startLong = request.GET.get("startLong")
+    startLat = request.GET.get("startLat")
+    if startLong and startLat:
+        startLat = float(startLat)
+        startLong = float(startLong)
+    else:
+        startLat = None
+        startLong = None
+
+    if not page:
+        page = 1
+    else:
+        page = int(page)
+
     order = request.GET.get('order')
-    order_list= []
+    order_list = []
     if order:
         for col in order.split(','):
             if col.startswith('-'):
-                order_list.append(f"F('{str(col.replace('-',''))}').desc(nulls_last=True)")
+                order_list.append(
+                    f"F('{str(col.replace('-',''))}').desc(nulls_last=True)")
             else:
                 order_list.append(f"F('{str(col)}').asc(nulls_first=True)")
     else:
         order_list.append("F('id').asc(nulls_last=True)")
-    order_list = "[" + ",".join(order_list) +  "]"
+    order_list = "[" + ",".join(order_list) + "]"
     if page > 1:
         start_index = ((page - 1) * rows_per_page)
-    rests = Rest.objects.filter(user=request.user).order_by(*eval(order_list))[
+    # rests = Rest.objects.filter(user=request.user).annotate(
+    #     distance=F('latitude') - startLat + F('longitude') - startLong, output_field=DecimalField())
+    print(startLat, startLong)
+    if startLat and startLong:
+        rests = Rest.objects.filter(user=request.user).annotate(
+            distance=Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField()), output_field=DecimalField()))
+    else:
+        rests = Rest.objects.filter(user=request.user).annotate(
+            distance=Value(None, output_field=DecimalField()))
+
+    rests = rests.order_by(*eval(order_list))[
         start_index: start_index + rows_per_page]
     total_results = Rest.objects.filter(user=request.user).count()
     if not total_results:
@@ -146,22 +172,19 @@ def show_rest(request, page):
         has_back = True
     total_pages = math.ceil(total_results / rows_per_page)
 
-  
-
     return render(request, 'my-rests.html',
-                {
-                    'rests': rests,
-                    'page': page,
-                    'has_next': has_next,
-                    'has_back': has_back,
-                    'next_page': page + 1,
-                    'back_page': page - 1,
-                    'total_results': total_results,
-                    'total_pages': total_pages
-                }
-                )
+                  {
+                      'rests': rests,
+                      'page': page,
+                      'has_next': has_next,
+                      'has_back': has_back,
+                      'next_page': page + 1,
+                      'back_page': page - 1,
+                      'total_results': total_results,
+                      'total_pages': total_pages
+                  }
+                  )
     # add to order query from current page
     # add to query if order query exists, if not start it
     # if col already in query, reset and order by that col,
     # if clicked col is at end of query and asc, switch to desc, else turn off order
-

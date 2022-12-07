@@ -4,71 +4,85 @@
 {% load static %}
 
 {% block content %}
+<script
+    src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&v=3.exp&sensor=false&libraries=places"></script>
+<script src="{% static 'js/find_start.js' %}" type="text/javascript"></script>
+
+<script src="{% static 'js/find_start.js' %}" type="text/javascript"></script>
+
 <div class="centered">
-    <div class="rest-children"></div>
-    <h1 style="margin-top:50px;">My Restaraunts</h1>
-    <table>
+    <div class="rest-children">
+        <h1 style="margin-bottom: 0; margin-top: 50px;">My Restaraunts</h1>
 
-        <tr>
-
-            <th><a class="sortable-columns" id="rest">Rest</a></th>
-            <th><a class="sortable-columns" id="my_rating">My Rating</a></th>
-            <th><a class="sortable-columns" id="rating">Rating</a></th>
-            <th><a class="sortable-columns" id="category">Category</a></th>
-            <th>Address</th>
-            <th>Notes</th>
-
-
-
-        </tr>
-
-        {% for rest in rests %}
-        <tr onclick="window.location='/edit-rest/{{rest.id}}'">
-            <td>
-                <div class="table-row"> {{rest.rest}}</div>
-            </td>
-            <td>
-                <div class="table-row">{{rest.my_rating}}</div>
-            </td>
-            <td>
-                <div class="table-row">{{rest.rating}}</div>
-            </td>
-            <td>
-                <div class="table-row">{{rest.category}}</div>
-            </td>
-            <td>
-                <div class="table-row">{{rest.address}}</div>
-            </td>
-            <td>
-                <div style="text-align: left" class="table-row">{{rest.notes}}</div>
-            </td>
-        </tr>
-        {% endfor %}
-
-    </table>
-    <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
-
-    <div id="container">
-        <div id="left">
-            {% if has_back %}
-            <a href="{% url 'my-rests' back_page %}">
-                <button type="button" class="button">Back</button>
-            </a>
-            {%endif%}
+        <div style="text-align:right; margin-top: 0; margin-right:20px;">
+            <input class="starting_location_search" id="searchTextField" placeholder="Enter starting location"
+                type="text" size="50">
         </div>
-        <div id="right">
-            {% if has_next %}
-            <a href="{% url 'my-rests' next_page %}">
-                <button type="button" class="button">Next</button></a>
-            {%endif%}
+        <table style="margin-top:20px">
+
+            <tr>
+
+                <th><a class="sortable-columns" id="rest">Rest</a></th>
+                <th><a class="sortable-columns" id="my_rating">My Rating</a></th>
+                <th><a class="sortable-columns" id="rating">Rating</a></th>
+                <th><a class="sortable-columns" id="category">Category</a></th>
+                <th><a class="sortable-columns" id="distance">Distance</a></th>
+                <th>Address</th>
+                <th>Notes</th>
+
+            </tr>
+
+            {% for rest in rests %}
+            <tr onclick="window.location='/edit-rest/{{rest.id}}'">
+                <td>
+                    <div class="table-row"> {{rest.rest}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.my_rating}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.rating}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.category}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.distance}}</div>
+                </td>
+                <td>
+                    <div class="table-row">{{rest.address}}</div>
+                </td>
+                
+                <td>
+                    <div style="text-align: left" class="table-row">{{rest.notes}}</div>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <div id="container">
+            <div id="left">
+                {% if has_back %}
+                <a class="back_button" id="back_button">
+                    <button type="button" class="button">Back</button>
+                </a>
+                {%endif%}
+            </div>
+            <div id="right">
+                {% if has_next %}
+                <a class="next_button" id="next_button">
+                    <button type="button" class="button">Next</button></a>
+                {%endif%}
+            </div>
+            <div id="center">
+                <p>Page {{page}} of {{total_pages}}</p>
+            </div>
         </div>
-        <div id="center">
-            <p>Page {{page}} of {{total_pages}}</p>
-        </div>
+        <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/page_buttons.js' %}" type="text/javascript"></script>
+
+
     </div>
 
-
-
-</div>
-
-{% endblock content %}
+    {% endblock content %}
