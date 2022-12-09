@@ -6,7 +6,6 @@ from .models import Rest
 from django.contrib.auth.decorators import login_required
 import math
 from django.db.models import F, Value, DecimalField
-from math import radians, cos, sin, asin, sqrt
 from django.db.models.functions import Abs, Round
 
 
@@ -18,9 +17,8 @@ def homepage(request):
 def add_rest(request):
     if request.method == 'POST':
         rest_post(request)
-        return HttpResponseRedirect('my-rests/1')
-    else:
-        form = AddRest()
+        return HttpResponseRedirect("/my-rests")
+    form = AddRest()
     categories = get_categories(request.user)
     return render(request, 'add-rest.html', {'form': form, 'categories': categories})
 
@@ -85,7 +83,8 @@ def edit_rest(request, id):
         return HttpResponseForbidden('Unauthorized', status=401)
     if request.method == 'POST':
         rest_post(request, initial_obj=obj)
-        return HttpResponseRedirect('/my-rests/1')
+        return HttpResponseRedirect(request.path)
+ 
     else:
         address = obj.address
         my_rating = obj.my_rating
@@ -104,7 +103,6 @@ def edit_rest(request, id):
 
 @login_required(login_url='/accounts/login')
 def delete_rest(request, id):
-    print(request.path)
     obj = Rest.objects.filter(id=id)
     if not obj.exists():
         return HttpResponseBadRequest(f'Rest with ID "{id}" does not exist.')
@@ -112,8 +110,8 @@ def delete_rest(request, id):
         obj.delete()
     else:
         return HttpResponseForbidden('Unauthorized', status=401)
-    print(request.META.get('HTTP_REFERER'))
-    return HttpResponseRedirect('/my-rests/1')
+    
+    return HttpResponseRedirect("/my-rests")
 
 
 @login_required(login_url='/accounts/login')

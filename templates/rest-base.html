@@ -135,7 +135,7 @@
             <input type="hidden" id="longitude" name="longitude" />
             <div style="text-align: right;">
                 {%if 'edit' in request.path %}
-                <a href="{% url 'delete-rest' id %}">
+                <a href="{% url 'delete-rest' id %}" onclick="return confirm('Are you sure?')">
                     <button type="button" class="button submit-delete-button">Delete</button></a>
                 {%endif%}
                 <button class="button submit-rest-button" type="submit">Save</button>

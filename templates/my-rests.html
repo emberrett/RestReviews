@@ -25,13 +25,16 @@
                 <th><a class="sortable-columns" id="my_rating">My Rating</a></th>
                 <th><a class="sortable-columns" id="rating">Rating</a></th>
                 <th><a class="sortable-columns" id="category">Category</a></th>
-                <th><a class="sortable-columns" id="distance">Distance</a></th>
+                <th>
+      
+                    <a id="distance">Distance</a>
+                </th>
                 <th>Address</th>
                 <th>Notes</th>
 
             </tr>
             {% for rest in rests %}
-            <tr onclick="window.location='/edit-rest/{{rest.id}}'">
+            <tr onclick="window.open('/edit-rest/{{rest.id}}')">
                 <td>
                     <div class="table-row"> {{rest.rest}}</div>
                 </td>
@@ -44,8 +47,10 @@
                 <td>
                     <div class="table-row">{{rest.category}}</div>
                 </td>
-                <td id={{rest.id}}>
+                <td>
+
                     <div class="table-row" id="{{rest.id}}">
+
                         <script>
                             calcCrow("{{rest.id}}", "{{rest.latitude}}", "{{rest.longitude}}");
                         </script>
