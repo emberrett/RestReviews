@@ -78,7 +78,7 @@ def get_categories(user):
 @login_required(login_url='/accounts/login')
 def edit_rest(request, id):
     obj = get_object_or_404(Rest, id=id)
-    print(obj)
+    
     if obj.user != str(request.user):
         return HttpResponseForbidden('Unauthorized', status=401)
     if request.method == 'POST':
@@ -88,6 +88,7 @@ def edit_rest(request, id):
     else:
         address = obj.address
         my_rating = obj.my_rating
+        print(my_rating)
         notes = obj.notes
         id = obj.pk
     categories = get_categories(request.user)
