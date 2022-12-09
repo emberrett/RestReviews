@@ -126,9 +126,9 @@
             <script src="{% static 'js/category_dropdown.js' %}" type="text/javascript"></script>
             <div>
                 {% if notes %}
-                <textarea rows="4" cols="40" id="notes" name="notes">{{notes}}</textarea>
+                <textarea rows="4" cols="40" id="notes" name="notes" maxlength="1000">{{notes}}</textarea>
                 {%else%}
-                <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes"></textarea>
+                <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes" maxlength="1000"></textarea>
                 {%endif%}
             </div>
             <input type="hidden" id="address" name="address" />

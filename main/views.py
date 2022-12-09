@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.contrib.auth.decorators import login_required
 import math
 from django.db.models import F, Value, DecimalField
@@ -29,7 +30,6 @@ def rest_post(request, initial_obj=None):
         form = AddRest(request.POST, instance=initial_obj)
     else:
         form = AddRest(request.POST)
-    print(request.POST)
     if request.POST.get('category_dropdown'):
         category = request.POST.get('category_dropdown', None)
     else:
@@ -89,7 +89,6 @@ def edit_rest(request, id):
     else:
         address = obj.address
         my_rating = obj.my_rating
-        print(my_rating)
         notes = obj.notes
         id = obj.pk
     categories = get_categories(request.user)
@@ -118,13 +117,19 @@ def delete_rest(request, id):
 
 @login_required(login_url='/accounts/login')
 def show_rest(request):
+    if request.method == 'POST':
+        if request.POST.get("measurement") == "true":
+            miles_bool = True
+        else:
+            miles_bool = False
+        User.objects.filter(username=request.user).update(miles=miles_bool)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     start_index = 0
     rows_per_page = 10
     page = request.GET.get("page")
     startLong = request.GET.get("startLong")
     startLat = request.GET.get("startLat")
     miles = str(request.user.miles)
-    print(miles)
 
     if startLong and startLat:
         startLat = float(startLat)
