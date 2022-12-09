@@ -123,7 +123,8 @@ def show_rest(request):
     page = request.GET.get("page")
     startLong = request.GET.get("startLong")
     startLat = request.GET.get("startLat")
-    miles = str(request.user)
+    miles = str(request.user.miles)
+    print(miles)
 
     if startLong and startLat:
         startLat = float(startLat)

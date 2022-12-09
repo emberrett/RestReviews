@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
@@ -26,12 +27,12 @@ def register(request):
         confirm_password = request.POST['confirm_password']
 
         if password == confirm_password:
-            if User.objects.filter(email=email).exists():
+            if get_user_model().objects.filter(email=email).exists():
                 messages.info(
                     request, 'There is already an account with this email, please login.')
                 return redirect(register)
             else:
-                user = User.objects.create_user(username=email, password=password,
+                user = get_user_model().objects.create_user(username=email, password=password,
                                                 email=email, first_name=first_name, last_name=last_name, is_active=False)
                 user.save()
                 current_site = get_current_site(request)
@@ -60,8 +61,8 @@ def register(request):
 def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = get_user_model().objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
@@ -105,7 +106,7 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
+            associated_users = get_user_model().objects.filter(Q(email=data))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
