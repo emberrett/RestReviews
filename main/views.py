@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
+
 from django.contrib.auth.decorators import login_required
 import math
 from django.db.models import F, Value, DecimalField
@@ -78,13 +79,13 @@ def get_categories(user):
 @login_required(login_url='/accounts/login')
 def edit_rest(request, id):
     obj = get_object_or_404(Rest, id=id)
-    
+
     if obj.user != str(request.user):
         return HttpResponseForbidden('Unauthorized', status=401)
     if request.method == 'POST':
         rest_post(request, initial_obj=obj)
         return HttpResponseRedirect(request.path)
- 
+
     else:
         address = obj.address
         my_rating = obj.my_rating
@@ -111,7 +112,7 @@ def delete_rest(request, id):
         obj.delete()
     else:
         return HttpResponseForbidden('Unauthorized', status=401)
-    
+
     return HttpResponseRedirect("/my-rests")
 
 
@@ -122,6 +123,8 @@ def show_rest(request):
     page = request.GET.get("page")
     startLong = request.GET.get("startLong")
     startLat = request.GET.get("startLat")
+    miles = str(request.user)
+
     if startLong and startLat:
         startLat = float(startLat)
         startLong = float(startLong)
@@ -151,7 +154,7 @@ def show_rest(request):
 
     if startLat and startLong:
         rests = Rest.objects.filter(user=request.user).annotate(
-            distance=Round(Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField())),precision =2, output_field=DecimalField(max_digits=5, decimal_places=2)))
+            distance=Round(Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField())), precision=2, output_field=DecimalField(max_digits=5, decimal_places=2)))
     else:
         rests = Rest.objects.filter(user=request.user).annotate(
             distance=Value(None, output_field=DecimalField()))
