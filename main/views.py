@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import math
 from django.db.models import F, Value, DecimalField
 from math import radians, cos, sin, asin, sqrt
-from django.db.models.functions import Abs
+from django.db.models.functions import Abs, Round
 
 
 def homepage(request):
@@ -149,12 +149,10 @@ def show_rest(request):
     order_list = "[" + ",".join(order_list) + "]"
     if page > 1:
         start_index = ((page - 1) * rows_per_page)
-    # rests = Rest.objects.filter(user=request.user).annotate(
-    #     distance=F('latitude') - startLat + F('longitude') - startLong, output_field=DecimalField())
-    print(startLat, startLong)
+
     if startLat and startLong:
         rests = Rest.objects.filter(user=request.user).annotate(
-            distance=Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField()), output_field=DecimalField()))
+            distance=Round(Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField())),precision =2, output_field=DecimalField(max_digits=5, decimal_places=2)))
     else:
         rests = Rest.objects.filter(user=request.user).annotate(
             distance=Value(None, output_field=DecimalField()))

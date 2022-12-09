@@ -1,6 +1,5 @@
 
 const order = (new URL(document.location)).searchParams.get("order");
-
 function getOrderParams(column) {
 
     if (order != null & order != "") {
