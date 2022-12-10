@@ -1,14 +1,17 @@
+from django.db.models.functions import Abs, Round
+from django.db.models import F, Value, DecimalField
+import math
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
+from django.db.models import Count
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from django.contrib.auth.decorators import login_required
-import math
-from django.db.models import F, Value, DecimalField
-from django.db.models.functions import Abs, Round
+
+category_limit = 30
 
 
 def homepage(request):
@@ -17,12 +20,18 @@ def homepage(request):
 
 @login_required(login_url='/accounts/login')
 def add_rest(request):
+    categories = get_categories(request.user)
+    category_total = len(categories)
     if request.method == 'POST':
-        rest_post(request)
+        if category_total <= category_limit:
+            rest_post(request)
         return HttpResponseRedirect("/my-rests")
     form = AddRest()
-    categories = get_categories(request.user)
-    return render(request, 'add-rest.html', {'form': form, 'categories': categories})
+    category_max = category_total > category_limit
+    return render(request, 'add-rest.html', {'form': form,
+                                             'categories': categories,
+                                             'category_max': category_max
+                                             })
 
 
 def rest_post(request, initial_obj=None):
@@ -79,11 +88,14 @@ def get_categories(user):
 @login_required(login_url='/accounts/login')
 def edit_rest(request, id):
     obj = get_object_or_404(Rest, id=id)
+    categories = get_categories(request.user)
+    category_total = len(categories)
 
     if obj.user != str(request.user):
         return HttpResponseForbidden('Unauthorized', status=401)
     if request.method == 'POST':
-        rest_post(request, initial_obj=obj)
+        if category_total < category_limit:
+            rest_post(request, initial_obj=obj)
         return HttpResponseRedirect(request.path)
 
     else:
@@ -91,15 +103,17 @@ def edit_rest(request, id):
         my_rating = obj.my_rating
         notes = obj.notes
         id = obj.pk
-    categories = get_categories(request.user)
+
     submit_path = f'/edit-rest/{id}'
+    category_max = category_total<=category_limit
     return render(request, f'edit-rest.html', {'my_rating': my_rating,
                                                submit_path: submit_path,
                                                'id': id,
                                                'notes': notes,
                                                'address': address,
                                                'categories': categories,
-                                               'current_category': obj.category})
+                                               'current_category': obj.category,
+                                               'category_max': category_max})
 
 
 @login_required(login_url='/accounts/login')
@@ -129,8 +143,6 @@ def show_rest(request):
     page = request.GET.get("page")
     startLong = request.GET.get("startLong")
     startLat = request.GET.get("startLat")
-    miles = str(request.user.miles)
-
     if startLong and startLat:
         startLat = float(startLat)
         startLong = float(startLong)
@@ -155,28 +167,53 @@ def show_rest(request):
     else:
         order_list.append("F('id').asc(nulls_last=True)")
     order_list = "[" + ",".join(order_list) + "]"
+
+    category_filter = request.GET.get("categories")
+
+    if category_filter:
+        if category_filter == "none":
+            rests = None
+        else:
+            category_filter = category_filter.split(",")
+            rests = Rest.objects.filter(
+                user=request.user, category__in=category_filter)
+    else:
+        rests = Rest.objects.filter(user=request.user)
+        if not rests:
+            return HttpResponseRedirect('/add-rest')
+
+    if not rests:
+        total_results = 0
+    else:
+        total_results = len(rests)
+
+    categories = [category['category']
+                  for category in list(Rest.objects.filter(user=request.user).values('category'))]
+    categories = sorted(set(categories))
+
     if page > 1:
         start_index = ((page - 1) * rows_per_page)
 
-    if startLat and startLong:
-        rests = Rest.objects.filter(user=request.user).annotate(
-            distance=Round(Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField())), precision=2, output_field=DecimalField(max_digits=5, decimal_places=2)))
-    else:
-        rests = Rest.objects.filter(user=request.user).annotate(
-            distance=Value(None, output_field=DecimalField()))
+    if rests:
+        if startLat and startLong:
+            rests = rests.annotate(
+                distance=Round(Abs(F('latitude') - Value(startLat, DecimalField())) + Abs(F('longitude') - Value(startLong, DecimalField())), precision=2, output_field=DecimalField(max_digits=5, decimal_places=2))).order_by(*eval(order_list))[
+                start_index: start_index + rows_per_page]
+        else:
+            rests = rests.annotate(
+                distance=Value(None, output_field=DecimalField())).order_by(*eval(order_list))[
+                start_index: start_index + rows_per_page]
 
-    rests = rests.order_by(*eval(order_list))[
-        start_index: start_index + rows_per_page]
-    total_results = Rest.objects.filter(user=request.user).count()
-    if not total_results:
-        return HttpResponseRedirect('/add-rest')
     has_next = False
     if total_results > rows_per_page * page:
         has_next = True
     has_back = False
     if page > 1:
         has_back = True
-    total_pages = math.ceil(total_results / rows_per_page)
+    if total_results:
+        total_pages = math.ceil(total_results / rows_per_page)
+    else:
+        total_pages = 1
 
     return render(request, 'my-rests.html',
                   {
@@ -187,7 +224,8 @@ def show_rest(request):
                       'next_page': page + 1,
                       'back_page': page - 1,
                       'total_results': total_results,
-                      'total_pages': total_pages
+                      'total_pages': total_pages,
+                      'categories': categories
                   }
                   )
     # add to order query from current page

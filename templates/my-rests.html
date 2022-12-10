@@ -12,109 +12,144 @@
 <div class="centered">
     <div class="rest-children">
         <h1 style="margin-bottom: 0; margin-top: 50px;">My Restaraunts</h1>
+        <p id="test"></p>
 
-        <div style="text-align:right; margin-top: 0; margin-right:20px;">
-            <input class="starting_location_search" id="searchTextField" placeholder="Enter starting location"
-                type="text" size="50">
-            <script>
-                    if (!isNaN(startLong) && !isNaN(startLat)) {
-                    searchField = document.getElementById("searchTextField");
-                    searchField.placeholder = 'Starting Location: ' + startLat.toString() + ',' + startLong.toString()
-                }
-            </script>
-        </div>
-        <table style="margin-top:20px">
+        <div style="display:table">
+            <div style="display:table-cell;" class="category-list">
+                <div class="category-list-inner">
+                    <h1 class="categories-header">Categories</h2>
+                        <ul class="cat_list">
+                            <script src="{% static 'js/category_filter.js' %}" type="text/javascript"></script>
 
-            <tr>
 
-                <th><a class="sortable-columns" id="rest">Rest</a></th>
-                <th><a class="sortable-columns" id="my_rating">My Rating</a></th>
-                <th><a class="sortable-columns" id="rating">Rating</a></th>
-                <th><a class="sortable-columns" id="category">Category</a></th>
-                <th>
-                    {%if startLat and startLong %}
-                    <a class="sortable-columns" id="distance">Distance</a>
-                    {%endif%}
-                    <a id="distance">Distance</a>
-                </th>
-                <th>Address</th>
-                <th>Notes</th>
+                            <li><input type="checkbox" onclick="toggle(this)" name="category_list" id="select_all"
+                                    value="select_all">
+                                <label style="font-weight: bold; margin-left: 0px;" for="select_all">Select All</label>
+                            </li>
+                            {% for category in categories %}
+                            <li><input type="checkbox" onclick="setCategories()" name="category_list"
+                                    id="cat_{{category}}" value="{{category}}">
+                                <label style="margin-left: 0px;" for="cat_{{category}}">{{category}}</label>
+                            </li>
+                            {% endfor %}
+                            <script>
+                                loadCategories()
+                            </script>
 
-            </tr>
-            {% for rest in rests %}
-            <tr onclick="window.open('/edit-rest/{{rest.id}}')">
-                <td>
-                    <div class="table-row"> {{rest.rest}}</div>
-                </td>
-                <td>
-                    <div class="table-row">{{rest.my_rating}}</div>
-                </td>
-                <td>
-                    <div class="table-row">{{rest.rating}}</div>
-                </td>
-                <td>
-                    <div class="table-row">{{rest.category}}</div>
-                </td>
-                <td>
+                        </ul>
 
-                    <div class="table-row" id="{{rest.id}}">
-
+                </div>
+                <div class="starting-location-search">
+                    <h1 class="categories-header">Starting Location</h2>
+                        <div class="starting-location-input">
+                            <input class="starting_location_search" id="searchTextField"
+                                placeholder="Search..." type="text">
+                        </div>
                         <script>
-                            calcCrow("{{rest.id}}", "{{rest.latitude}}", "{{rest.longitude}}", "{{request.user.miles}}");
+                            if (!isNaN(startLong) && !isNaN(startLat)) {
+                                searchField = document.getElementById("searchTextField");
+                                searchField.placeholder = startLat.toString() + ',' + startLong.toString()
+                            }
                         </script>
+
+                </div>
+
+            </div>
+            <div style="display:table-cell">
+
+                <table style="margin-top:20px">
+
+                    <tr>
+
+                        <th><a class="sortable-columns" id="rest">Rest</a></th>
+                        <th><a class="sortable-columns" id="my_rating">My Rating</a></th>
+                        <th><a class="sortable-columns" id="rating">Rating</a></th>
+                        <th><a class="sortable-columns" id="category">Category</a></th>
+                        <th>
+                            {%if startLat and startLong %}
+                            <a class="sortable-columns" id="distance">Distance</a>
+                            {%endif%}
+                            <a id="distance">Distance</a>
+                        </th>
+                        <th>Address</th>
+                        <th>Notes</th>
+
+                    </tr>
+                    {% for rest in rests %}
+                    <tr onclick="window.open('/edit-rest/{{rest.id}}')">
+                        <td>
+                            <div class="table-row"> {{rest.rest}}</div>
+                        </td>
+                        <td>
+                            <div class="table-row">{{rest.my_rating}}</div>
+                        </td>
+                        <td>
+                            <div class="table-row">{{rest.rating}}</div>
+                        </td>
+                        <td>
+                            <div class="table-row">{{rest.category}}</div>
+                        </td>
+                        <td>
+
+                            <div class="table-row" id="{{rest.id}}">
+
+                                <script>
+                                    calcCrow("{{rest.id}}", "{{rest.latitude}}", "{{rest.longitude}}", "{{request.user.miles}}");
+                                </script>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="table-row">{{rest.address}}</div>
+                        </td>
+
+                        <td>
+                            <div style="text-align: left" class="table-row">{{rest.notes}}</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+
+                <div id="container">
+                    <div id="left">
+                        {% if has_back %}
+                        <a class="back_button" id="back_button">
+                            <button type="button" class="button">Back</button>
+                        </a>
+                        {%endif%}
                     </div>
-                </td>
-                <td>
-                    <div class="table-row">{{rest.address}}</div>
-                </td>
+                    <div id="right">
+                        {% if has_next %}
+                        <a class="next_button" id="next_button">
+                            <button type="button" class="button">Next</button></a>
+                        {%endif%}
+                    </div>
+                    <div id="center">
+                        <div>
+                            <p>Page {{page}} of {{total_pages}}</p>
+                        </div>
+                        <div>
+                            <form action="{{submit_path}}" method="post">
+                                {% csrf_token %}
+                                <input id="miles" type="radio" name="measurement" value="true" size="50"
+                                    onclick="this.form.submit();" checked><label for="miles">mi</label>
+                                <input id="km" type="radio" name="measurement" value="false" size="50"
+                                    onclick="this.form.submit();"><label for="km">km</label>
+                            </form>
+                        </div>
+                        {%if not request.user.miles %}
+                        <script>
+                            let kmRadio = document.getElementById("km");
+                            kmRadio.checked = true;
+                        </script>
+                        {%endif%}
 
-                <td>
-                    <div style="text-align: left" class="table-row">{{rest.notes}}</div>
-                </td>
-            </tr>
-            {% endfor %}
-
-        </table>
-
-        <div id="container">
-            <div id="left">
-                {% if has_back %}
-                <a class="back_button" id="back_button">
-                    <button type="button" class="button">Back</button>
-                </a>
-                {%endif%}
-            </div>
-            <div id="right">
-                {% if has_next %}
-                <a class="next_button" id="next_button">
-                    <button type="button" class="button">Next</button></a>
-                {%endif%}
-            </div>
-            <div id="center">
-                <div>
-                    <p>Page {{page}} of {{total_pages}}</p>
+                    </div>
                 </div>
-                <div>
-                    <form action="{{submit_path}}" method="post">
-                        {% csrf_token %}
-                        <input id="miles" type="radio" name="measurement" value="true" size="50"
-                            onclick="this.form.submit();" checked><label for="miles">mi</label>
-                        <input id="km" type="radio" name="measurement" value="false" size="50"
-                            onclick="this.form.submit();"><label for="km">km</label>
-                    </form>
-                </div>
-                {%if not request.user.miles %}
-                <script>
-                    let kmRadio = document.getElementById("km");
-                    kmRadio.checked = true;
-                </script>
-                {%endif%}
-
+                <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/page_buttons.js' %}" type="text/javascript"></script>
             </div>
         </div>
-        <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
-        <script src="{% static 'js/page_buttons.js' %}" type="text/javascript"></script>
-
     </div>
 
     {% endblock content %}

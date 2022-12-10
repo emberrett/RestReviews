@@ -23,7 +23,7 @@
 
 td,
 th {
-  max-width: 150px;
+  max-width: 300px;
   vertical-align: middle;
 }
 
@@ -297,10 +297,68 @@ input[type=submit] {
   color: #f2f2f2;
 }
 
-.starting_location_search{
-  width: 25%;
+.starting-location-search{
+  margin-top: 10px;
 }
 
 .my-rests-title-row{
   margin-top:50px;
+}
+
+
+.category-list{
+  width: 20%;
+  padding-right:20px;
+
+}
+
+
+
+.category-list-inner, .starting-location-search{
+  width: 100%;
+  max-height: 300px;
+  min-width: 90px;
+  max-width: 200px;
+  padding-bottom: 10px;
+  overflow-y: scroll;
+  overflow:scroll;
+  white-space: nowrap;
+  background-color:rgba(200, 233, 238, 0.605);
+  box-shadow: 5px 4px 30px rgba(0, 0, 0, .10);
+  border-radius: 10px;
+  text-align: left !important;
+  border: 1px solid rgb(200, 200, 200);
+}
+
+.cat_list{
+  list-style-type: none;
+  margin:0px;
+  padding:0px;
+}
+
+.categories-header{
+font-size: 18px;
+padding-right: 10px;
+padding-left: 10px;
+margin-bottom: 6px;
+text-align: center;
+
+
+}
+
+.starting-location-input{
+  margin:auto;
+  text-align: center;
+}
+
+#searchTextField{
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+  height: 20px;
+}
+
+.max-category-message{
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.658);
+  text-align: center;
 }
