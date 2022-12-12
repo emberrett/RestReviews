@@ -14,7 +14,6 @@ User = get_user_model()
 category_limit = 30
 
 
-
 @login_required(login_url='/accounts/login')
 def add_rest(request):
     categories = get_categories(request.user)
@@ -76,11 +75,11 @@ def rest_post(request, initial_obj=None):
 
 
 def homepage(request):
-    rests= Rest.objects.filter(user=request.user)
-    has_rests=False
+    rests = Rest.objects.filter(user=request.user)
+    has_rests = False
     if rests:
         has_rests = True
-    return render(request, 'index.html',{'has_rests':has_rests})
+    return render(request, 'index.html', {'has_rests': has_rests})
 
 
 def get_categories(user):
@@ -164,8 +163,15 @@ def show_rest(request):
 
     order = request.GET.get('order')
     order_list = []
+    acceptable_values = ["category", "rest", "rating", "my_rating", "distance"]
+    negative_values = []
+    for value in acceptable_values:
+        negative_values.append("-"+value)
+    acceptable_values.extend(negative_values)
     if order:
         for col in order.split(','):
+            if col not in acceptable_values:
+                raise Exception(f"Invalid value for order parameter:{col}")
             if col.startswith('-'):
                 order_list.append(
                     f"F('{str(col.replace('-',''))}').desc(nulls_last=True)")
