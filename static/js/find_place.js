@@ -9,6 +9,7 @@ function initialize() {
         document.getElementById('rating').value = place.rating;
         document.getElementById('rest').value = place.name;
         document.getElementById('address').value = place.formatted_address;
+        document.getElementById('submit-buttons').style.visibility = "visible";
     });
 }
 google.maps.event.addDomListener(window, 'load', initialize); 

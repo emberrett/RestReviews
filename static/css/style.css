@@ -385,3 +385,9 @@ input[type=submit] {
 #add-rest-link:hover{
   cursor: pointer;
 }
+
+.submit-buttons{
+
+  text-align: right;
+  visibility: hidden;
+}
