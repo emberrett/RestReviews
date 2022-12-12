@@ -106,7 +106,7 @@ def edit_rest(request, id):
         rest_name = obj.rest
 
     submit_path = f'/edit-rest/{id}'
-    category_max = category_total <= category_limit
+    category_max = category_total >= category_limit
     return render(request, f'edit-rest.html', {'my_rating': my_rating,
                                                submit_path: submit_path,
                                                'id': id,
