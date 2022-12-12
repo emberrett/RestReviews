@@ -364,7 +364,7 @@ input[type=submit] {
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
   height: 25px;
-  margin: 0px 10px 0px;}
+}
 
 .max-category-message {
   font-size: 10px;
