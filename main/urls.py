@@ -8,5 +8,4 @@ urlpatterns = [
     path("edit-rest", views.edit_rest),
     path("my-rests", views.show_rest, name="my-rests"),
     path('delete-rest/<int:id>', views.delete_rest, name='delete-rest'),
-
 ]

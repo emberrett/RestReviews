@@ -1,6 +1,6 @@
 var startLong = parseFloat((new URL(document.location)).searchParams.get("startLong"));
 var startLat = parseFloat((new URL(document.location)).searchParams.get("startLat"));
-function calcCrow(elementID, endLat, endLong, miles = "True") {
+function calcDistance(elementID, endLat, endLong, miles = "True") {
     let distance_element = document.getElementById(elementID);
     if (startLong && startLat) {
         let distanceHeader = document.getElementById("distance");

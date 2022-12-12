@@ -25,7 +25,7 @@ def add_rest(request):
     if request.method == 'POST':
         if category_total <= category_limit:
             rest_post(request)
-        return HttpResponseRedirect("/my-rests")
+        return render(request, 'close-window.html')
     form = AddRest()
     category_max = category_total > category_limit
     return render(request, 'add-rest.html', {'form': form,
@@ -96,19 +96,21 @@ def edit_rest(request, id):
     if request.method == 'POST':
         if category_total < category_limit:
             rest_post(request, initial_obj=obj)
-        return HttpResponseRedirect(request.path)
+        return render(request, 'close-window.html')
 
     else:
         address = obj.address
         my_rating = obj.my_rating
         notes = obj.notes
         id = obj.pk
+        rest_name = obj.rest
 
     submit_path = f'/edit-rest/{id}'
-    category_max = category_total<=category_limit
+    category_max = category_total <= category_limit
     return render(request, f'edit-rest.html', {'my_rating': my_rating,
                                                submit_path: submit_path,
                                                'id': id,
+                                               'rest_name': rest_name,
                                                'notes': notes,
                                                'address': address,
                                                'categories': categories,
@@ -116,7 +118,7 @@ def edit_rest(request, id):
                                                'category_max': category_max})
 
 
-@login_required(login_url='/accounts/login')
+@ login_required(login_url='/accounts/login')
 def delete_rest(request, id):
     obj = Rest.objects.filter(id=id)
     if not obj.exists():
@@ -126,10 +128,10 @@ def delete_rest(request, id):
     else:
         return HttpResponseForbidden('Unauthorized', status=401)
 
-    return HttpResponseRedirect("/my-rests")
+    return render(request, 'close-window.html')
 
 
-@login_required(login_url='/accounts/login')
+@ login_required(login_url='/accounts/login')
 def show_rest(request):
     if request.method == 'POST':
         if request.POST.get("measurement") == "true":
