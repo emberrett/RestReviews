@@ -14,9 +14,6 @@ User = get_user_model()
 category_limit = 30
 
 
-def homepage(request):
-    return render(request, 'index.html', context={})
-
 
 @login_required(login_url='/accounts/login')
 def add_rest(request):
@@ -76,6 +73,14 @@ def rest_post(request, initial_obj=None):
         new_obj.my_rating = my_rating
         new_obj.user = str(request.user)
         new_obj.save()
+
+
+def homepage(request):
+    rests= Rest.objects.filter(user=request.user)
+    has_rests=False
+    if rests:
+        has_rests = True
+    return render(request, 'index.html',{'has_rests':has_rests})
 
 
 def get_categories(user):

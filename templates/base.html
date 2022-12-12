@@ -12,16 +12,19 @@
 </head>
 
 <body>
+    <script src="{% static 'js/center_popup.js' %}" type="text/javascript"></script>
+
     <div class="topnav">
         <a href="//127.0.0.1:8000">RestReviews</a>
 
         {% if user.is_authenticated %}
-
+        {% block show_my_rest %}
         <a href="//127.0.0.1:8000/my-rests">My Restaraunts</a>
+        {%endblock%}
 
         {% if request.path != "/add-rest" %}
 
-        <a id="add-rest-link" onclick="MyPopUpWin('/add-rest', 600,600);">Add a Restaraunt</a>
+        <a id="add-rest-link" onclick="MyPopUpWin('add-rest', 600,600);">Add a Restaraunt</a>
 
         {% endif %}
 

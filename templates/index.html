@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}rest-reviews{% endblock title %}
+{% block show_my_rest %}
+{% if has_rests %}
+        <a href="//127.0.0.1:8000/my-rests">My Restaraunts</a>
+        {%endif%}
+{%endblock%}
 
 
 {% block content %}
