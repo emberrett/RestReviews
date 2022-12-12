@@ -103,6 +103,7 @@ tbody tr:nth-child(odd) {
   justify-content: center;
   align-items: center;
   text-align: center;
+
 }
 
 
@@ -146,6 +147,9 @@ body {
   background-color: rgb(250, 248, 243);
   margin: 0px;
   font-family: Optima;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .fa_custom {
@@ -377,6 +381,7 @@ input[type=submit] {
   display: table;
   border-collapse: separate;
   border-spacing: 0px;
+  margin-bottom: 40px;
 }
 
 .div-row {
@@ -396,4 +401,22 @@ input[type=submit] {
 
   text-align: right;
   visibility: hidden;
+}
+
+
+footer {
+  border-top:  1px solid rgb(200, 200, 200);
+  width: 90%;
+  margin-left:auto;
+  margin-right: auto;
+  flex: 0 0 50px;/*or just height:50px;*/
+  margin-top: auto;
+  text-align: center;
+}       /* Footer height */
+
+.footer-table-cell{
+  display:table-cell;
+  width: 33%;
+  padding-right: 20px;
+  padding-left: 20px;
 }
