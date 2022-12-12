@@ -9,6 +9,7 @@ function initialize() {
         document.getElementById('rating').value = place.rating;
         document.getElementById('rest').value = place.name;
         document.getElementById('address').value = place.formatted_address;
+        document.getElementById('rest_title').innerHTML = place.name;
         document.getElementById('submit-buttons').style.visibility = "visible";
     });
 }

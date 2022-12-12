@@ -18,14 +18,18 @@
 <div class="pop-up">
     <div class="rest-form">
         <div class="rest-form-inner">
-            <div style="text-align: center;">
-                {% if 'add' in request.path %}
-                <h1>Add a Restaraunt</h1>
-                {%else%}
-                <div style="width:100%">
-                    <h1>{{rest_name}}</h1>
-                </div>
-                {%endif%}
+            <div style="text-align: center; width:100%">
+
+                <h1 id="rest_title">
+                    {% if 'add' in request.path %}
+                    Add a Restaraunt
+
+                    {%else%}
+                    {{rest_name}}
+
+                    {%endif%}
+                </h1>
+
             </div>
             <form action="{{submit_path}}" method="post">
                 {% csrf_token %}
