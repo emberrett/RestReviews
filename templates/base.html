@@ -19,9 +19,7 @@
         <a href="//www.restreviews.com">RestReviews</a>
 
         {% if user.is_authenticated %}
-        {% block show_my_rest %}
         <a href="//www.restreviews.com/my-rests">My Restaraunts</a>
-        {%endblock%}
 
         {% if request.path != "/add-rest" %}
 
