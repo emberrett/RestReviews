@@ -96,7 +96,7 @@ def login(request, user=None):
         #     messages.info(request, 'Email has not be verified yet. Please check your email for verification instructions.')
         else:
             if not User.objects.get(email=email).is_active:
-                messages.info(
+                messages.info(request, 
                     "This account has already been created but the email has not been verified. To send another verification email, please resubmit your registration.")
             else:
                 messages.info(request, 'Invalid Email or Password. ')
