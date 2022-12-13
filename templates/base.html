@@ -16,11 +16,11 @@
     <script src="{% static 'js/center_popup.js' %}" type="text/javascript"></script>
 
     <div class="topnav">
-        <a href="//127.0.0.1:8000">RestReviews</a>
+        <a href="//rest-review.com">RestReviews</a>
 
         {% if user.is_authenticated %}
         {% block show_my_rest %}
-        <a href="//127.0.0.1:8000/my-rests">My Restaraunts</a>
+        <a href="//rest-review.com">My Restaraunts</a>
         {%endblock%}
 
         {% if request.path != "/add-rest" %}
@@ -29,17 +29,17 @@
 
         {% endif %}
 
-        <a href="//127.0.0.1:8000/accounts/logout">Logout</a>
+        <a href="//rest-review.com/accounts/logout">Logout</a>
 
         {% else %}
         {% if request.path != "/accounts/register" %}
 
-        <a href="//127.0.0.1:8000/accounts/register">Sign Up</a>
+        <a href="//rest-review.com/accounts/register">Sign Up</a>
 
         {% endif %}
         {% if request.path != "/accounts/login" %}
 
-        <a href="//127.0.0.1:8000/accounts/login">Login</a>
+        <a href="//rest-review.comaccounts/login">Login</a>
 
         {% endif %}
         {% endif %}
