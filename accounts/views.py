@@ -34,27 +34,28 @@ def register(request):
                         request, 'This account has already been created but the email has not been verified. Another confirmation email has been sent. Please check your inbox.')
                     user = User.objects.get(email=email)
                 else:
-                    user = User.objects.create_user(username=email, password=password,
-                                                    email=email, first_name=first_name, last_name=last_name, is_active=False)
-                    user.save()
-                current_site = get_current_site(request)
-                mail_subject = 'Activate your blog account.'
-                message = render_to_string('accounts/activation_email.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                })
-                to_email = email
-                email = EmailMessage(
-                    mail_subject, message, to=[to_email]
-                )
-                email.send()
-                return redirect('login')
+                    messages.info(
+                        request, 'There is already an account with this email, please login.')
+                    return redirect('login')
             else:
-                messages.info(
-                    request, 'There is already an account with this email, please login.')
-                return redirect('login')
+                user = User.objects.create_user(username=email, password=password,
+                                                email=email, first_name=first_name, last_name=last_name, is_active=False)
+                user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('accounts/activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return redirect('login')
+            
 
         else:
             messages.info(request, 'Both passwords are not matching')
