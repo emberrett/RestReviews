@@ -55,7 +55,6 @@ def register(request):
             )
             email.send()
             return redirect('login')
-            
 
         else:
             messages.info(request, 'Both passwords are not matching')
@@ -96,7 +95,11 @@ def login(request, user=None):
         # if not user.is_active:
         #     messages.info(request, 'Email has not be verified yet. Please check your email for verification instructions.')
         else:
-            messages.info(request, 'Invalid Email or Password. ')
+            if not User.objects.get(email=email).is_active:
+                messages.info(
+                    "This account has already been created but the email has not been verified. To send another verification email, please resubmit your registration.")
+            else:
+                messages.info(request, 'Invalid Email or Password. ')
             return redirect('login')
 
     else:
