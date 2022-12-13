@@ -109,7 +109,7 @@
                 {%if not category_max%}
                 <div class="form-input">
                     <div>
-                        <input type="radio" id="new_category_radio" class="category_radio" name="category_radio" />
+                        <input type="radio" id="new_category_radio" class="category_radio" name="category_radio" checked/>
                         <label for="new_category_radio">Create New category
                             <input style="border: 1px solid rgb(200, 200, 200); height: 25px; border-radius: 5px;" type="text" id="category_text" maxlength="40" name="category_text" required/>
                         </label>
@@ -123,7 +123,7 @@
                     <input type="radio" class="category_radio" id="category_dropdown_radio" name="category_radio"
                         checked />
                     <label for="category_dropdown_radio">Choose an Existing Category</label>
-                    <select id="category_dropdown" name="category_dropdown" style="height: 25px; border: 1px solid rgb(200, 200, 200); border-radius: 5px;">                   ">
+                    <select id="category_dropdown" name="category_dropdown" style="height: 25px; border: 1px solid rgb(200, 200, 200); border-radius: 5px;"> 
                         {% for category in categories %}
                         {% if 'edit' in request.path and current_category == category %}
                         <option value="{{category}}" selected>{{category}}</option>
