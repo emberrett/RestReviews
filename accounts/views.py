@@ -42,6 +42,7 @@ def register(request):
                                                 email=email, first_name=first_name, last_name=last_name, is_active=False)
                 user.save()
             current_site = get_current_site(request)
+
             mail_subject = 'Activate your RestReviews account.'
             message = render_to_string('accounts/activation_email.html', {
                 'user': user,
@@ -54,6 +55,8 @@ def register(request):
                 mail_subject, message, to=[to_email]
             )
             email.send()
+            messages.info(
+                request, 'An activation email has ben sent. Please check your inbox.')
             return redirect('login')
 
         else:
@@ -96,8 +99,8 @@ def login(request, user=None):
         #     messages.info(request, 'Email has not be verified yet. Please check your email for verification instructions.')
         else:
             if not User.objects.get(email=email).is_active:
-                messages.info(request, 
-                    "This account has already been created but the email has not been verified. To send another verification email, please resubmit your registration.")
+                messages.info(request,
+                              "This account has already been created but the email has not been verified. To send another verification email, please resubmit your registration.")
             else:
                 messages.info(request, 'Invalid Email or Password. ')
             return redirect('login')
