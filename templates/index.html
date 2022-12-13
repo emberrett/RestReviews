@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}rest-reviews{% endblock title %}
 {% block show_my_rest %}
 {% if has_rests %}
-        <a href="//127.0.0.1:8000/my-rests">My Restaraunts</a>
-        {%endif%}
+<a href="//127.0.0.1:8000/my-rests">My Restaraunts</a>
+{%endif%}
 {%endblock%}
 
 
@@ -12,8 +13,11 @@
 <div style="text-align:center; margin-top:50px; width: 50%; margin:auto">
     <br><br><br>
     <h1>Hi, Welcome to RestReviews</h1>
+
     <h2> This website is a tool that helps you keep track of which restaraunts you've tried,
-         which restaraunts you've liked, and other helpful information to help you plan your dining.</h2>
+        which restaraunts you've liked, and other helpful information to help you plan your dining.</h2>
+    <br>
+    <img src="{% static 'images/icon.png' %}" alt="RestReviews Logo" style="width:200px;height:200px;">
+
 </div>
 {% endblock content %}
-

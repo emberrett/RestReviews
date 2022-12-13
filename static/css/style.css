@@ -1,6 +1,6 @@
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: rgb(33, 121, 133);
+  background-color: #217985;
   overflow: hidden;
   box-shadow: 0 2px 5px 0 black;
 }
@@ -144,7 +144,7 @@ tbody tr:nth-child(odd) {
 
 
 body {
-  background-color: rgb(250, 248, 243);
+  background-color: #faf8f3;
   margin: 0px;
   font-family: Optima;
   display: flex;
@@ -293,11 +293,12 @@ input[type=submit] {
 .rest-form-inner {
   text-align: left;
   display: inline-block;
-  background-color: rgba(200, 233, 238, 0.605);
+  background-color: rgb(200, 233, 238);
   box-shadow: 5px 4px 30px rgba(0, 0, 0, .10);
   padding: 30px;
   margin-top: 50px;
   border-radius: 10px;
+  border: 1px solid rgb(200, 200, 200);
 }
 
 .form-input>* {
@@ -339,7 +340,7 @@ input[type=submit] {
   overflow-y: scroll;
   overflow: scroll;
   white-space: nowrap;
-  background-color: rgba(200, 233, 238, 0.605);
+  background-color: #c8e9ee;
   box-shadow: 5px 4px 30px rgba(0, 0, 0, .10);
   border-radius: 10px;
   text-align: left;
@@ -365,7 +366,7 @@ input[type=submit] {
 }
 
 #searchTextField {
-  border: 1px solid rgb(200, 200, 200);
+  border: 1px solid #c8c8c8;
   border-radius: 5px;
   height: 25px;
 }
