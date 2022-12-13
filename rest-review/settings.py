@@ -37,6 +37,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 
 # Application definition
 
+CSRF_TRUSTED_ORIGINS = ['https://*.restreviews.com']
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
