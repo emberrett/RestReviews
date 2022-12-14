@@ -17,8 +17,18 @@
         src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&v=3.exp&sensor=false&libraries=places"></script>
     <script src="{% static 'js/find_place.js' %}" type="text/javascript"></script>
 </head>
+{%block body_style %}
 
+<body class="form-background">
+    {%endblock%}
 {% block content %}
+<script>
+
+    window.onunload = refreshParent;
+    function refreshParent() {
+        window.opener.location.reload();
+    }
+</script>
 <div class="pop-up">
     <div class="rest-form">
         <div class="rest-form-inner">
@@ -109,22 +119,25 @@
                 {%if not category_max%}
                 <div class="form-input">
                     <div>
-                        <input type="radio" id="new_category_radio" class="category_radio" name="category_radio" checked/>
+                        <input type="radio" id="new_category_radio" class="category_radio" name="category_radio"
+                            checked />
                         <label for="new_category_radio">Create New category
-                            <input style="border: 1px solid rgb(200, 200, 200); height: 25px; border-radius: 5px;" type="text" id="category_text" maxlength="40" name="category_text" required/>
+                            <input style="border: 1px solid rgb(200, 200, 200); height: 25px; border-radius: 5px;"
+                                type="text" id="category_text" maxlength="40" name="category_text" required />
                         </label>
                     </div>
 
                 </div>
 
                 {%endif%}
-                
+
                 {% if categories %}
                 <div>
                     <input type="radio" class="category_radio" id="category_dropdown_radio" name="category_radio"
                         checked />
                     <label for="category_dropdown_radio">Choose an Existing Category</label>
-                    <select id="category_dropdown" name="category_dropdown" style="height: 25px; border: 1px solid rgb(200, 200, 200); border-radius: 5px;"> 
+                    <select id="category_dropdown" name="category_dropdown"
+                        style="height: 25px; border: 1px solid rgb(200, 200, 200); border-radius: 5px;">
                         {% for category in categories %}
                         {% if 'edit' in request.path and current_category == category %}
                         <option value="{{category}}" selected>{{category}}</option>
@@ -141,10 +154,11 @@
                 {%endif%}
                 <div>
                     {% if notes %}
-                    <textarea rows="4" cols="40" id="notes" name="notes" maxlength="1000" style="border: 1px solid rgb(200, 200, 200); border-radius: 5px;">{{notes}}</textarea>
+                    <textarea rows="4" cols="40" id="notes" name="notes" maxlength="1000"
+                        style="border: 1px solid rgb(200, 200, 200); border-radius: 5px;">{{notes}}</textarea>
                     {%else%}
-                    <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes" style="border: 1px solid rgb(200, 200, 200); border-radius: 5px;"
-                        maxlength="1000"></textarea>
+                    <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes"
+                        style="border: 1px solid rgb(200, 200, 200); border-radius: 5px;" maxlength="1000"></textarea>
                     {%endif%}
                 </div>
                 <input type="hidden" id="address" name="address" />
@@ -170,4 +184,3 @@
 </div>
 
 {% endblock content %}
-

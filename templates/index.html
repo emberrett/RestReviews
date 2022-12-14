@@ -2,7 +2,12 @@
 {% load static %}
 
 {% block title %}RestReviews{% endblock title %}
-<a href="//www.restreviews.com/my-rests">My Restaraunts</a>
+
+{% block show_my_rest %}
+{% if has_rests %}
+<a href="//{{request.get_host}}/my-rests">My Restaraunts</a>
+{%endif%}
+{%endblock%}
 
 {% block content %}
 <div style="text-align:center; margin-top:50px; width: 50%; margin:auto">

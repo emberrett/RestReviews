@@ -11,15 +11,19 @@
     <script src="https://kit.fontawesome.com/{{FA_KEY}}.js" crossorigin="anonymous"></script>
     {% block head_extra %}{% endblock head_extra %}
 </head>
+{%block body_style %}
 
 <body>
+    {%endblock%}
     <script src="{% static 'js/center_popup.js' %}" type="text/javascript"></script>
 
     <div class="topnav">
-        <a href="//www.restreviews.com">RestReviews</a>
+        <a href="//{{request.get_host}}">RestReviews</a>
 
         {% if user.is_authenticated %}
-        <a href="//www.restreviews.com/my-rests">My Restaraunts</a>
+        {% block show_my_rest %}
+        <a href="//{{request.get_host}}/my-rests">My Restaraunts</a>
+        {%endblock%}
 
         {% if request.path != "/add-rest" %}
 
@@ -27,17 +31,17 @@
 
         {% endif %}
 
-        <a href="//www.restreviews.com/accounts/logout">Logout</a>
-fig 
+        <a href="//{{request.get_host}}/accounts/logout">Logout</a>
+
         {% else %}
         {% if request.path != "/accounts/register" %}
 
-        <a href="//www.restreviews.com/accounts/register">Sign Up</a>
+        <a href="//{{request.get_host}}/accounts/register">Sign Up</a>
 
         {% endif %}
         {% if request.path != "/accounts/login" %}
 
-        <a href="//www.restreviews.com/accounts/login">Login</a>
+        <a href="//{{request.get_host}}/accounts/login">Login</a>
 
         {% endif %}
         {% endif %}
@@ -46,7 +50,6 @@ fig
 
     {% block content %}
     {% endblock content %}
-    <div id="footer-separator"></div>
     <footer>
 
         <div style="display: table">
@@ -54,16 +57,18 @@ fig
                 <div class="footer-table-cell">
                     <p>Disclaimer </p>
                     <p style="font-size: small;">
-                        All custom code, designs, and logos are the intellectual property of RestReviews.com. 
-                        Any reproduction of said property is not to be used in pursuit of monetary profit without express
-                        written consent by the owners of RestReviews.com. 
+                        All custom code, designs, and logos are the intellectual property of RestReviews.com.
+                        Any reproduction of said property is not to be used in pursuit of monetary profit without
+                        express
+                        written consent by the owners of RestReviews.com.
                 </div>
                 <div class="footer-table-cell">
                     <p>Privacy Policy</p>
                     <p style="font-size: x-small;">RestReviews.com does not save any personal information beyond email.
                         Saved data includes all Rest information displayed.
                         Your starting location is never saved; distances are calculated in the front-end.
-                        Your data is not shared or sold to a 3rd party. RestReviews.com is not responsible for data exposed through hacking or means of breaching website security.
+                        Your data is not shared or sold to a 3rd party. RestReviews.com is not responsible for data
+                        exposed through hacking or means of breaching website security.
                         However, RestReviews.com does aim to maintain best practices for of keeping user data safe.
                     </p>
                     </p>
@@ -71,7 +76,7 @@ fig
                 <div class="footer-table-cell">
                     <p>Contact </p>
                     <p>info.restreview@gmail.com</p>
-                    
+
                 </div>
             </div>
         </div>
