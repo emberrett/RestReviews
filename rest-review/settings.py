@@ -28,7 +28,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-TESTING = False
+TESTING = os.environ.get("TESTING")
+if TESTING == "1":
+    TESTING = True
+else:
+    TESTING = False
 
 if TESTING:
     DEBUG = True
