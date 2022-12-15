@@ -139,7 +139,13 @@ tbody tr:nth-child(odd) {
 
 }
 
-
+#welcome_message {
+  font-size: 15px;
+  width: 50%;
+  margin-top: 30px;
+  text-align: center;
+  margin: auto;
+}
 
 
 body {
@@ -477,7 +483,7 @@ footer {
   border-radius: 5px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 750px) {
 
   th{
     font-size: 30px
@@ -564,13 +570,7 @@ footer {
     font-size: 30px;
   }
 
-  #welcome_message {
-    text-align: center;
-    margin-top: 50px;
-    width: 50%;
-    margin: auto;
-  }
-
+  
   .notes-input {
     font-size: 25px;
     height: 50%;
@@ -620,7 +620,6 @@ footer {
   #welcome_message {
     font-size: 30px;
     width: 90%;
-    margin-top: 30px;
   }
 
   .account-form-div {
