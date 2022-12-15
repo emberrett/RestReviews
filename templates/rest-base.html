@@ -21,166 +21,165 @@
 
 <body class="form-background">
     {%endblock%}
-{% block content %}
-<script>
+    {% block content %}
+    <script>
 
-    window.onunload = refreshParent;
-    function refreshParent() {
-        window.opener.location.reload();
-    }
-</script>
-<div class="pop-up">
-    <div class="rest-form">
-        <div class="rest-form-inner">
-            <div style="text-align: center; width:100%">
+        window.onunload = refreshParent;
+        function refreshParent() {
+            window.opener.location.reload();
+        }
+    </script>
+    <div class="pop-up">
+        <div class="rest-form">
+            <div class="rest-form-inner">
+                <div style="text-align: center; width:100%">
 
-                <h1 id="rest_title">
-                    {% if 'add' in request.path %}
-                    Add a Restaraunt
+                    <h1 id="rest_title">
+                        {% if 'add' in request.path %}
+                        Add a Restaraunt
 
-                    {%else%}
-                    {{rest_name}}
+                        {%else%}
+                        {{rest_name}}
 
-                    {%endif%}
-                </h1>
+                        {%endif%}
+                    </h1>
 
-            </div>
-            <form action="{{submit_path}}" method="post">
-                {% csrf_token %}
-                <label>
-                    {% if 'add' in request.path %}
-                    <input id="searchTextField" type="text" size="50">
-                    {%else%}
-                    <input id="searchTextField" type="text" size="50" value="{{address}}">
-                    {%endif%}
-                </label>
-
-
-                <div class="form-input">
-                    <div>
-                        <label>Have you been?</label>
-
-
-                        <input type="radio" id="tried_true" class="tried_radio" name="tried_radio" value="true"
-                            required>
-                        <label for="tried_true">Yes</label>
-                        <input type="radio" id="tried_false" class="tried_radio" name="tried_radio" value="false"
-                            required>
-                        <label for="tried_false">No</label>
-
-
-                    </div>
                 </div>
+                <form action="{{submit_path}}" method="post">
+                    {% csrf_token %}
+                    <label>
+                        {% if 'add' in request.path %}
+                        <input id="searchTextField" type="text" size="50">
+                        {%else%}
+                        <input id="searchTextField" type="text" size="50" value="{{address}}">
+                        {%endif%}
+                    </label>
 
-                <div class="form-input">
-                    <div style="display:inline-block;">
-                        <label for="ratingInput">My Rating:</label>
-                    </div>
 
-                    <div style="display:inline-block;">
+                    <div class="form-input">
+                        <div>
+                            <label class="tried_label">Have you been?</label>
 
-                        <div id="slider_div" class="slider">
 
-                            <input id="my_rating" name="my_rating" type="range" min="0" max="5" value="0" step="0.1"
-                                oninput="range_value.innerText = this.value" />
-                            <p id="range_value">
-                            </p>
+                            <input type="radio" id="tried_true" class="tried_radio large-radio" name="tried_radio"
+                                value="true" required>
+                            <label class="tried_label" for="tried_true">Yes</label>
+                            <input type="radio" id="tried_false" class="tried_radio large-radio" name="tried_radio"
+                                value="false" required>
+                            <label class="tried_label" for="tried_false">No</label>
+
+
                         </div>
                     </div>
-                </div>
 
-                {% if 'add' in request.path or my_rating == None %}
-                <script>
-                    const triedFalseRadio = document.getElementById("tried_false");
-                    triedFalseRadio.checked = true;
-                </script>
-                {% else %}
-                <script>
-                    const triedTrueRadio = document.getElementById("tried_true");
-                    triedTrueRadio.checked = true;
-                </script>
-                {% endif %}
+                    <div class="form-input">
+                        <div style="display:inline-block;">
+                            <label class="enlarged-on-mobile" for="ratingInput">My Rating:</label>
+                        </div>
 
-                {%if 'edit' in request.path%}
-                <script>
-                    function setRatingSlider() {
-                        let my_rating = "{{my_rating}}";
+                        <div style="display:inline-block;">
 
-                        rangeValue = document.getElementById("range_value");
-                        rangeValue.innerHTML = my_rating;
-                        rangeSlider = document.getElementById("my_rating");
-                        rangeSlider.value = my_rating;
-                    }
-                    setRatingSlider();
-                </script>
-                {% endif %}
-                <script src="{% static 'js/rating_slider.js' %}" type="text/javascript"></script>
+                            <div id="slider_div" class="slider">
 
-                {%if not category_max%}
-                <div class="form-input">
-                    <div>
-                        <input type="radio" id="new_category_radio" class="category_radio" name="category_radio"
-                            checked />
-                        <label for="new_category_radio">Create New category
-                            <input style="border: 1px solid rgb(200, 200, 200); height: 25px; border-radius: 5px;"
-                                type="text" id="category_text" maxlength="40" name="category_text" required />
-                        </label>
+                                <input id="my_rating" name="my_rating" type="range" min="0" max="5" value="0" step="0.1"
+                                    oninput="range_value.innerText = this.value" />
+                                <p id="range_value">
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-
-                {%endif%}
-
-                {% if categories %}
-                <div>
-                    <input type="radio" class="category_radio" id="category_dropdown_radio" name="category_radio"
-                        checked />
-                    <label for="category_dropdown_radio">Choose an Existing Category</label>
-                    <select id="category_dropdown" name="category_dropdown"
-                        style="height: 25px; border: 1px solid rgb(200, 200, 200); border-radius: 5px;">
-                        {% for category in categories %}
-                        {% if 'edit' in request.path and current_category == category %}
-                        <option value="{{category}}" selected>{{category}}</option>
-                        {%else%}
-                        <option value="{{category}}">{{category}}</option>
-                        {%endif%}
-                        {%endfor%}
-                    </select>
-                </div>
-                {%endif%}
-                <script src="{% static 'js/category_dropdown.js' %}" type="text/javascript"></script>
-                {%if category_max%}
-                <p class="max-category-message">Category limit reached (30).</p>
-                {%endif%}
-                <div>
-                    {% if notes %}
-                    <textarea rows="4" cols="40" id="notes" name="notes" maxlength="1000"
-                        style="border: 1px solid rgb(200, 200, 200); border-radius: 5px;">{{notes}}</textarea>
-                    {%else%}
-                    <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes"
-                        style="border: 1px solid rgb(200, 200, 200); border-radius: 5px;" maxlength="1000"></textarea>
-                    {%endif%}
-                </div>
-                <input type="hidden" id="address" name="address" />
-                <input type="hidden" id="rest" name="rest" />
-                <input type="hidden" id="rating" name="rating" />
-                <input type="hidden" id="latitude" name="latitude" />
-                <input type="hidden" id="longitude" name="longitude" />
-                <div class="submit-buttons" id="submit-buttons">
-                    {%if 'edit' in request.path %}
+                    {% if 'add' in request.path or my_rating == None %}
                     <script>
-                        document.getElementById('submit-buttons').style.visibility = "visible";
+                        const triedFalseRadio = document.getElementById("tried_false");
+                        triedFalseRadio.checked = true;
                     </script>
-                    <a href="{% url 'delete-rest' id %}" onclick="return confirm('Are you sure?')">
-                        <button type="button" class="button submit-delete-button">Delete</button></a>
+                    {% else %}
+                    <script>
+                        const triedTrueRadio = document.getElementById("tried_true");
+                        triedTrueRadio.checked = true;
+                    </script>
+                    {% endif %}
+
+                    {%if 'edit' in request.path%}
+                    <script>
+                        function setRatingSlider() {
+                            let my_rating = "{{my_rating}}";
+
+                            rangeValue = document.getElementById("range_value");
+                            rangeValue.innerHTML = my_rating;
+                            rangeSlider = document.getElementById("my_rating");
+                            rangeSlider.value = my_rating;
+                        }
+                        setRatingSlider();
+                    </script>
+                    {% endif %}
+                    <script src="{% static 'js/rating_slider.js' %}" type="text/javascript"></script>
+
+                    {%if not category_max%}
+                    <div class="form-input">
+                        <div>
+                            <input type="radio" id="new_category_radio" class="category_radio large-radio "
+                                name="category_radio" checked />
+                            <label class="enlarged-on-mobile" for="new_category_radio">Create New category
+                                <input type="text" id="category_text" maxlength="40" name="category_text" required />
+                            </label>
+                        </div>
+
+                    </div>
+
                     {%endif%}
-                    <button class="button submit-rest-button" type="submit">Save</button>
-                </div>
-            </form>
+
+                    {% if categories %}
+                    <div>
+                        <input type="radio" class="category_radio large-radio" id="category_dropdown_radio"
+                            name="category_radio" checked />
+                        <label class="enlarged-on-mobile" for="category_dropdown_radio">Choose an Existing
+                            Category</label>
+                        <select id="category_dropdown" name="category_dropdown">
+                            {% for category in categories %}
+                            {% if 'edit' in request.path and current_category == category %}
+                            <option value="{{category}}" selected>{{category}}</option>
+                            {%else%}
+                            <option value="{{category}}">{{category}}</option>
+                            {%endif%}
+                            {%endfor%}
+                        </select>
+                    </div>
+                    {%endif%}
+                    <script src="{% static 'js/category_dropdown.js' %}" type="text/javascript"></script>
+                    {%if category_max%}
+                    <p class="max-category-message">Category limit reached (30).</p>
+                    {%endif%}
+                    <div>
+                        {% if notes %}
+                        <textarea rows="4" cols="40" id="notes" name="notes" maxlength="1000"
+                            class="notes-input">{{notes}}</textarea>
+                        {%else%}
+                        <textarea rows="4" cols="40" id="notes" name="notes" placeholder="Notes" maxlength="1000"
+                            class="notes-input"></textarea>
+                        {%endif%}
+                    </div>
+                    <input type="hidden" id="address" name="address" />
+                    <input type="hidden" id="rest" name="rest" />
+                    <input type="hidden" id="rating" name="rating" />
+                    <input type="hidden" id="latitude" name="latitude" />
+                    <input type="hidden" id="longitude" name="longitude" />
+                    <div class="submit-buttons" id="submit-buttons">
+                        {%if 'edit' in request.path %}
+                        <script>
+                            document.getElementById('submit-buttons').style.visibility = "visible";
+                        </script>
+                        <a href="{% url 'delete-rest' id %}" onclick="return confirm('Are you sure?')">
+                            <button type="button" class="button submit-delete-button">Delete</button></a>
+                        {%endif%}
+                        <button class="button submit-rest-button" type="submit">Save</button>
+                    </div>
+                </form>
 
 
+            </div>
         </div>
     </div>
-</div>
 
-{% endblock content %}
+    {% endblock content %}
