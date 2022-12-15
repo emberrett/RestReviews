@@ -17,8 +17,7 @@ REST_LIMIT = 300
 
 @login_required(login_url='/accounts/login')
 def add_rest(request):
-    total_rests = len(Rest.objects.filter(user=request.user))
-    if total_rests >= 300:
+    if reached_max(user=request.user):
         raise Exception(f"Rest limit reached {REST_LIMIT}")
     categories = get_categories(request.user)
     category_total = len(categories)
