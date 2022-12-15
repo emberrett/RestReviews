@@ -31,10 +31,10 @@
             window.opener.location.reload();
         }
     </script>
-    <div class="pop-up">
+
         <div class="rest-form">
             <div class="rest-form-inner">
-                <div style="text-align: center; width:100%">
+                <div>
 
                     <h1 id="rest_title">
                         {% if 'add' in request.path %}
@@ -51,9 +51,9 @@
                     {% csrf_token %}
                     <label>
                         {% if 'add' in request.path %}
-                        <input id="searchTextField" type="text" size="50">
+                        <input id="searchTextField" type="text" size="50" class="add-rest-search">
                         {%else%}
-                        <input id="searchTextField" type="text" size="50" value="{{address}}">
+                        <input id="searchTextField" type="text" size="50" class="add-rest-search" value="{{address}}">
                         {%endif%}
                     </label>
 
@@ -62,14 +62,14 @@
                         <div>
                             <label class="tried_label">Have you been?</label>
 
-
+                            <div class="tried-radios">
                             <input type="radio" id="tried_true" class="tried_radio large-radio" name="tried_radio"
                                 value="true" required>
                             <label class="tried_label" for="tried_true">Yes</label>
                             <input type="radio" id="tried_false" class="tried_radio large-radio" name="tried_radio"
                                 value="false" required>
                             <label class="tried_label" for="tried_false">No</label>
-
+                        </div>
 
                         </div>
                     </div>
@@ -182,6 +182,5 @@
 
             </div>
         </div>
-    </div>
 
     {% endblock content %}

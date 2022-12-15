@@ -69,7 +69,7 @@
                             {%if startLat and startLong %}
                             <a class="sortable-columns" id="distance">Distance</a>
                             {%endif%}
-                            <a id="distance">Distance</a>
+                            <a id="distance" class="distance">Distance</a>
                         </th>
                         <th class="hidden-mobile">Address</th>
                         <th class="hidden-mobile">Notes</th>
@@ -84,10 +84,10 @@
                             <div class="table-row"> {{rest.rest}}</div>
                         </td>
                         <td>
-                            <div class="table-row">{{rest.my_rating}}</div>
+                            <div class="table-row rating">{{rest.my_rating}}</div>
                         </td>
                         <td>
-                            <div class="table-row">{{rest.rating}}</div>
+                            <div class="table-row rating">{{rest.rating}}</div>
                         </td>
                         <td>
                             <div class="table-row">{{rest.category}}</div>

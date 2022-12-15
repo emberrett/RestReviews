@@ -44,7 +44,7 @@ ALLOWED_HOSTS = ['0.0.0.0']
 if TESTING:
     ALLOWED_HOSTS.append('127.0.0.1')
 
-if TESTING:
+if not TESTING:
     EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
     EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
     EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
