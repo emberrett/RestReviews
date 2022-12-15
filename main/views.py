@@ -11,19 +11,23 @@ from django.db.models import Count
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-category_limit = 30
+CATEGORY_LIMIT = 30
+REST_LIMIT = 300
 
 
 @login_required(login_url='/accounts/login')
 def add_rest(request):
+    total_rests = len(Rest.objects.filter(user=request.user))
+    if total_rests >= 300:
+        raise Exception(f"Rest limit reached {REST_LIMIT}")
     categories = get_categories(request.user)
     category_total = len(categories)
     if request.method == 'POST':
-        if category_total <= category_limit:
+        if category_total <= CATEGORY_LIMIT:
             rest_post(request)
         return render(request, 'close-window.html')
     form = AddRest()
-    category_max = category_total > category_limit
+    category_max = category_total > CATEGORY_LIMIT
     return render(request, 'add-rest.html', {'form': form,
                                              'categories': categories,
                                              'category_max': category_max
@@ -74,12 +78,19 @@ def rest_post(request, initial_obj=None):
         new_obj.save()
 
 
+def reached_max(user):
+    rest_count = Rest.objects.filter(user=user).count()
+    if rest_count >= REST_LIMIT:
+        return True
+    return False
+
+
 def homepage(request):
     rests = Rest.objects.filter(user=request.user)
     has_rests = False
     if rests:
         has_rests = True
-    return render(request, 'index.html', {'has_rests': has_rests})
+    return render(request, 'index.html', {'has_rests': has_rests, 'rest_max': reached_max(request.user), 'rest_limit': REST_LIMIT})
 
 
 def get_categories(user):
@@ -98,7 +109,7 @@ def edit_rest(request, id):
     if obj.user != str(request.user):
         return HttpResponseForbidden('Unauthorized', status=401)
     if request.method == 'POST':
-        if category_total < category_limit:
+        if category_total < CATEGORY_LIMIT:
             rest_post(request, initial_obj=obj)
         return render(request, 'close-window.html')
 
@@ -110,7 +121,7 @@ def edit_rest(request, id):
         rest_name = obj.rest
 
     submit_path = f'/edit-rest/{id}'
-    category_max = category_total >= category_limit
+    category_max = category_total >= CATEGORY_LIMIT
     return render(request, f'edit-rest.html', {'my_rating': my_rating,
                                                submit_path: submit_path,
                                                'id': id,
@@ -119,7 +130,8 @@ def edit_rest(request, id):
                                                'address': address,
                                                'categories': categories,
                                                'current_category': obj.category,
-                                               'category_max': category_max})
+                                               'category_max': category_max,
+                                               'category_limit': CATEGORY_LIMIT})
 
 
 @ login_required(login_url='/accounts/login')
@@ -238,7 +250,9 @@ def show_rest(request):
                       'back_page': page - 1,
                       'total_results': total_results,
                       'total_pages': total_pages,
-                      'categories': categories
+                      'categories': categories,
+                      'rest_max': reached_max(user=request.user),
+                      'rest_limit': REST_LIMIT
                   }
                   )
     # add to order query from current page

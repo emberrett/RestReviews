@@ -26,11 +26,9 @@
         <a href="//{{request.get_host}}/my-rests">My Restaraunts</a>
         {%endblock%}
 
-        {% if request.path != "/add-rest" %}
-
-        <a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaraunt</a>
-
-        {% endif %}
+        {%block add_rest%}
+        {%endblock%}
+  
 
         <a href="//{{request.get_host}}/accounts/logout">Logout</a>
 

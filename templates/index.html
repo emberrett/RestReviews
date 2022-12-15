@@ -9,6 +9,15 @@
 {%endif%}
 {%endblock%}
 
+{% block add_rest %}
+{% if not rest_max %}
+<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaraunt</a>
+{%endif%}
+{%endblock%}
+
+
+
+
 {% block content %}
 <div id="welcome_message">
     <br><br><br>
