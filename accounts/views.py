@@ -15,7 +15,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
+from django.contrib.auth.decorators import login_required
+from main.models import Rest
+from main.views import user_has_rests,reached_max
 User = get_user_model()
 
 
@@ -95,10 +97,8 @@ def login(request, user=None):
             auth.login(request, user)
             return redirect('home')
 
-        # if not user.is_active:
-        #     messages.info(request, 'Email has not be verified yet. Please check your email for verification instructions.')
         else:
-            if not User.objects.get(email=email).is_active:
+            if user and not User.objects.get(email=email).is_active:
                 messages.info(request,
                               "This account has already been created but the email has not been verified. To send another verification email, please resubmit your registration.")
             else:
@@ -142,3 +142,16 @@ def password_reset_request(request):
                     return redirect("password_reset/done/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="accounts/password/password_reset.html", context={"password_reset_form": password_reset_form})
+
+@login_required(login_url='/accounts/login')
+def view_account(request):
+    user = request.user
+    has_rest = user_has_rests(request.user)
+    return render(request, 'accounts/account.html', {'user_email': user, 'has_rests': has_rest, 'rest_max': reached_max(user=request.user)})
+
+@login_required(login_url='/accounts/login')
+def delete_account(request):
+    user = request.user
+    User.objects.filter(email=user).delete()
+    Rest.objects.filter(user=user).delete()
+    return render(request, 'login', {'user_email': user})

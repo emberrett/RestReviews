@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
-from django.db.models import Count
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -31,6 +30,8 @@ def add_rest(request):
                                              'categories': categories,
                                              'category_max': category_max
                                              })
+
+
 
 
 def close_window(request):
@@ -86,12 +87,14 @@ def reached_max(user):
         return True
     return False
 
+def user_has_rests(user):
+    rests = Rest.objects.filter(user=user)
+    if rests:
+        return True
+    return False
 
 def homepage(request):
-    rests = Rest.objects.filter(user=request.user)
-    has_rests = False
-    if rests:
-        has_rests = True
+    has_rests = user_has_rests(request.user)
     return render(request, 'index.html', {'has_rests': has_rests, 'rest_max': reached_max(request.user), 'rest_limit': REST_LIMIT})
 
 

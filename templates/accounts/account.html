@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{%block title%}My Account{%endblock%}
+{% block show_my_rest %}
+{% if has_rests %}
+<a href="//{{request.get_host}}/my-rests">My Restaraunts</a>
+{%endif%}
+{%endblock%}
+
+{% block add_rest %}
+{% if not rest_max %}
+<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaraunt</a>
+{%endif%}
+{%endblock%}
+
+{%block content%}
+<div class="my-account">
+
+<h1 id="my_account_title">My Account</h1>
+<div>
+<h2>Email: {{user_email}}</h2>
+<a href="/accounts/password/password_reset" ><button style="margin-right:20px" type="button" class="button">Reset Password</button></a>
+<a href="/accounts/delete-account" onclick="return confirm('Are you sure? Account deletions are permanent. Your account and all of your data will be deleted.')"><button style="margin-right:20px" type="button" class="button">Delete Account</button></a>
+
+</div>
+</div>
+{%endblock%}

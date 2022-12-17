@@ -31,8 +31,9 @@
         {%block add_rest%}
         {%endblock%}
   
-
+        <a href="//{{request.get_host}}/accounts/account">Account</a>
         <a href="//{{request.get_host}}/accounts/logout">Logout</a>
+
 
         {% else %}
         {% if request.path != "/accounts/register" %}
@@ -45,7 +46,10 @@
         <a href="//{{request.get_host}}/accounts/login">Login</a>
 
         {% endif %}
+
+
         {% endif %}
+
 
     </div>
 
