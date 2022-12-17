@@ -33,6 +33,9 @@ def add_rest(request):
                                              })
 
 
+def close_window(request):
+    return render(request, 'close-window.html')
+
 def rest_post(request, initial_obj=None):
     if initial_obj:
         form = AddRest(request.POST, instance=initial_obj)

@@ -498,6 +498,17 @@ footer {
 .notes-input {
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
+  width: 100%;
+  margin-top: 15px; 
+}
+
+#cancel_icon{
+  color: grey;
+  padding: 0px;
+  text-align: center;
+
+  margin-right: -15px;
+  margin-top: -15px;
 }
 
 @media (max-width: 600px) {
