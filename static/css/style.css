@@ -46,7 +46,7 @@ tr:hover:not(:first-child) {
 }
 
 .table-row {
-  height: 30px;
+  max-height: 30px;
 }
 
 table {
@@ -501,15 +501,18 @@ footer {
 
   td {
     font-size: 8px;
-    white-space: wrap;
-    overflow-y:auto;
   }
 
+  .table-row{
+    max-height: none;
+  }
   th,
   td {
     white-space: wrap;
     max-width: 25px;
-    max-height: none;
+    margin-left: 0px;
+
+    overflow: hidden;
   }
 
   .hidden-mobile {
@@ -573,7 +576,6 @@ footer {
     height: 30px;
     font-size: 15px;
     max-width: 300px;
-    width: 90%;
     margin-bottom: 5px;
     margin-top: 5px;
     min-width: 10px;
