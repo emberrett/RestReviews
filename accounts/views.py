@@ -152,6 +152,6 @@ def view_account(request):
 @login_required(login_url='/accounts/login')
 def delete_account(request):
     user = request.user
-    User.objects.filter(email=user).delete()
     Rest.objects.filter(user=user).delete()
-    return render(request, 'login', {'user_email': user})
+    User.objects.filter(email=user).delete()
+    return render(request, 'accounts/login.html', {'user_email': user})
