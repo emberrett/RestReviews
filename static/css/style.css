@@ -509,6 +509,7 @@ footer {
   td {
     white-space: wrap;
     max-width: 25px;
+    max-height: none;
   }
 
   .hidden-mobile {
@@ -572,6 +573,7 @@ footer {
     height: 30px;
     font-size: 15px;
     max-width: 300px;
+    width: 90%;
     margin-bottom: 5px;
     margin-top: 5px;
     min-width: 10px;
