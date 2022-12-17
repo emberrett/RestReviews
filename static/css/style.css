@@ -574,7 +574,7 @@ footer {
     max-width: 300px;
     margin-bottom: 5px;
     margin-top: 5px;
-    min-width: 30px;
+    min-width: 10px;
 
   }
 
@@ -664,8 +664,6 @@ footer {
     margin-top: 15px;
   }
   .category-list-items{
-    max-width: 40px;
-
     margin-left: 2px;
   }
   #welcome_message {
