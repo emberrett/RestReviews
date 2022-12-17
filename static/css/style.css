@@ -371,6 +371,7 @@ input[type=submit] {
 
 .filters {
   width: 20%;
+  max-width: 150px;
   text-align: center;
 }
 
@@ -569,7 +570,6 @@ footer {
 
   .filters {
     margin-left: 15px;
-    max-width: 300px;
   }
 
 
@@ -602,7 +602,7 @@ footer {
 
   .starting-location-search-input {
     height: 30px;
-    font-size: 15px;
+    font-size: 10px;
     max-width: 70%;
     margin-bottom: 5px;
     margin-top: 5px;
