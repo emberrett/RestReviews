@@ -49,19 +49,20 @@
                         </ul>
                 </div>
                 <div class="starting-location-search-div">
-                    <h1 class="filters-header">Starting Location</h2>
+                    <h1 class="filters-header">Starting Location</h1>
 
-                        <input class="starting-location-search-input" id="searchTextField" placeholder="Search..."
-                            type="text">
+                    <input class="starting-location-search-input" id="searchTextField" placeholder="Search..."
+                        type="text">
 
-                        <script>
-                            if (!isNaN(startLong) && !isNaN(startLat)) {
-                                searchField = document.getElementById("searchTextField");
-                                searchField.placeholder = startLat.toString() + ',' + startLong.toString()
-                            }
-                        </script>
+
 
                 </div>
+                <script>
+                    if (!isNaN(startLong) && !isNaN(startLat)) {
+                        searchField = document.getElementById("searchTextField");
+                        searchField.placeholder = startLat.toString() + ',' + startLong.toString()
+                    }
+                </script>
 
             </div>
             <div class="div-cell">
