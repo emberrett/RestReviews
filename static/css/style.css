@@ -335,6 +335,8 @@ input[type=submit] {
 
 .starting-location-search-div {
   margin-top: 10px;
+
+  text-align: center;
 }
 
 .my-rests-title-row {
@@ -385,6 +387,14 @@ display:inline;
   border: 1px solid rgb(200, 200, 200);
 }
 
+.category-list-inner{
+  text-align: left;
+}
+
+.starting-location-search-div{
+  text-align: center;
+}
+
 .category-list-items {
   overflow-y: scroll;
   overflow: scroll;
@@ -416,9 +426,7 @@ display:inline;
 
 
 
-.starting-location-input {
-  text-align: center;
-}
+
 
 .starting-location-search-input, .add-rest-search {
   border: 1px solid #c8c8c8;
@@ -541,9 +549,6 @@ footer {
     max-width: 300px;
   }
 
-  .distance{
-    font-size: 8px;
-  }
 
   #page_count {
     font-size: 20px;
@@ -579,7 +584,6 @@ footer {
     margin-bottom: 5px;
     margin-top: 5px;
     min-width: 10px;
-
   }
 
   
