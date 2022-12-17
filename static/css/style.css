@@ -97,7 +97,7 @@ tr:last-of-type td:first-of-type {
 
 
 tbody tr:nth-child(odd) {
-  background-color: rgb(200, 233, 238);
+  background-color: rgb(229, 248, 248);
 }
 
 
@@ -218,6 +218,12 @@ body {
 
 
 }
+
+#rest_logo {
+  width: 200px;
+  height: 200px;
+}
+
 
 input[type=submit] {
   width: 100%;
@@ -368,12 +374,12 @@ input[type=submit] {
   text-align: center;
 }
 
-.tried-radios{
-display:inline;
+.tried-radios {
+  display: inline;
 }
 
 .category-list-inner,
-.starting-location-search-div{
+.starting-location-search-div {
   margin-left: auto;
   margin-right: 0;
   width: 100%;
@@ -386,12 +392,12 @@ display:inline;
   border: 1px solid rgb(200, 200, 200);
 }
 
-.category-list-inner{
+.category-list-inner {
   text-align: left;
   margin-top: 2px;
 }
 
-.starting-location-search-div{
+.starting-location-search-div {
   text-align: center;
 }
 
@@ -428,7 +434,8 @@ display:inline;
 
 
 
-.starting-location-search-input, .add-rest-search {
+.starting-location-search-input,
+.add-rest-search {
   border: 1px solid #c8c8c8;
   border-radius: 5px;
   height: 25px;
@@ -500,10 +507,10 @@ footer {
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
   width: 100%;
-  margin-top: 15px; 
+  margin-top: 15px;
 }
 
-#cancel_icon{
+#cancel_icon {
   color: grey;
   padding: 0px;
   text-align: center;
@@ -523,9 +530,10 @@ footer {
     font-size: 8px;
   }
 
-  .table-row{
+  .table-row {
     max-height: none;
   }
+
   th,
   td {
     white-space: wrap;
@@ -539,7 +547,7 @@ footer {
   }
 
   .topnav a {
-    font-size:20px;
+    font-size: 20px;
     margin-right: 20px;
   }
 
@@ -549,9 +557,11 @@ footer {
     width: 100%;
     margin-right: 5px;
   }
-  .starting-location-search-div{
+
+  .starting-location-search-div {
     min-width: 0;
   }
+
   .filters-header {
     font-size: 15px;
     white-space: normal;
@@ -579,7 +589,7 @@ footer {
     height: 20px;
   }
 
-  .rating{
+  .rating {
     font-size: 15px;
   }
 
@@ -599,7 +609,7 @@ footer {
     min-width: 0;
   }
 
-  
+
 
   .add-rest-search {
     height: 40px;
@@ -633,11 +643,11 @@ footer {
     font-size: 20px;
   }
 
-  .tried-radios{
-    display:block;
+  .tried-radios {
+    display: block;
     margin-top: 10px;
-    }
-    
+  }
+
   .notes-input {
     font-size: 25px;
     width: 90%;
@@ -684,14 +694,23 @@ footer {
     margin-bottom: 15px;
     margin-top: 15px;
   }
-  .category-list-items{
+
+  .category-list-items {
     margin-left: 2px;
   }
+
   #welcome_message {
-    font-size: 20px;
+    font-size: 18px;
     width: 90%;
     margin-top: 40px;
   }
+
+  #rest_logo {
+    width: 80px;
+    height: 80px;
+  }
+
+
 
   .account-form-div {
     font-size: 15px;
@@ -700,7 +719,7 @@ footer {
 
   }
 
-  .div-table{
+  .div-table {
     margin-top: 70px;
   }
 
@@ -747,9 +766,9 @@ footer {
     text-align: center;
     font-size: 5px;
   }
-  
+
   /* Footer height */
-  
+
   .footer-table-cell {
     display: table-cell;
     width: 33%;
