@@ -34,12 +34,12 @@
 
                             <li><input type="checkbox" onclick="toggle(this)" name="category_list" id="select_all"
                                     value="select_all">
-                                <label style="font-weight: bold; margin-left: 0px;" for="select_all">Select All</label>
+                                <label style="font-weight: bold;" for="select_all">Select All</label>
                             </li>
                             {% for category in categories %}
                             <li><input type="checkbox" onclick="setCategories()" name="category_list"
                                     id="cat_{{category}}" value="{{category}}">
-                                <label style="margin-left: 0px;" for="cat_{{category}}">{{category}}</label>
+                                <label for="cat_{{category}}">{{category}}</label>
                             </li>
                             {% endfor %}
                             <script>
@@ -48,10 +48,10 @@
 
                         </ul>
                 </div>
-                <div class="starting-location-search">
+                <div class="starting-location-search-div">
                     <h1 class="filters-header">Starting Location</h2>
                         <div class="starting-location-input">
-                            <input class="starting_location_search" id="searchTextField" placeholder="Search..."
+                            <input class="starting-location-search-input" id="searchTextField" placeholder="Search..."
                                 type="text">
                         </div>
                         <script>
