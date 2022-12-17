@@ -51,9 +51,9 @@
                 <div class="starting-location-search-div">
                     <h1 class="filters-header">Starting Location</h2>
 
-                            <input class="starting-location-search-input" id="searchTextField" placeholder="Search..."
-                                type="text">
-            
+                        <input class="starting-location-search-input" id="searchTextField" placeholder="Search..."
+                            type="text">
+
                         <script>
                             if (!isNaN(startLong) && !isNaN(startLat)) {
                                 searchField = document.getElementById("searchTextField");
@@ -162,10 +162,10 @@
                 </div>
                 <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
                 <script src="{% static 'js/page_buttons.js' %}" type="text/javascript"></script>
-              {%if rest_max %}
-              <p>You have reached the max number of rests ({{rest_limit}}).</p>
-              {%endif%}
-          </div>
+                {%if rest_max %}
+                <p>You have reached the max number of rests ({{rest_limit}}).</p>
+                {%endif%}
+            </div>
         </div>
     </div>
 </div>
