@@ -29,10 +29,11 @@ td,
 th {
   max-width: 300px;
   vertical-align: middle;
+  margin: 0px;
 }
 
 td {
-  padding: 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
   text-overflow: hidden;
   overflow-y: scroll;
   border-right: 1px solid rgb(200, 200, 200);
@@ -509,9 +510,8 @@ footer {
   th,
   td {
     white-space: wrap;
-    max-width: 25px;
     margin-left: 0px;
-
+    padding: 5px;
     overflow: hidden;
   }
 
