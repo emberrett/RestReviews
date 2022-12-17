@@ -371,7 +371,7 @@ input[type=submit] {
 
 .filters {
   width: 20%;
-  max-width: 150px;
+  max-width: 300px;
   text-align: center;
 }
 
@@ -570,6 +570,8 @@ footer {
 
   .filters {
     margin-left: 15px;
+    max-width: 100px;
+
   }
 
 
