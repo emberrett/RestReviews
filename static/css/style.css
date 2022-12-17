@@ -620,19 +620,18 @@ footer {
   }
 
   .rest-form {
-    left: 0;
-    position: absolute;
     width: 100%;
     height: 100%;
-
-
+    padding: 0px;
   }
 
 
   .rest-form-inner {
-    width: 60%;
-    margin-left: 0px;
-    margin-right: 80px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+
   }
 
   #rest_title {
@@ -656,7 +655,6 @@ footer {
 
 
   .slider {
-    margin-top: 15px;
     width: 200px;
     height: 30px;
   }
@@ -682,7 +680,7 @@ footer {
     height: 50px;
     margin-top: 10px;
     width: 200px;
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 15px;
 
   }
@@ -690,9 +688,13 @@ footer {
   #category_text {
     height: 50px;
     width: 200px;
-    font-size: 25px;
+    font-size: 20px;
     margin-bottom: 15px;
     margin-top: 15px;
+  }
+
+  #my_rating_label{
+    padding-top: 20px;
   }
 
   .category-list-items {
