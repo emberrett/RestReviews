@@ -538,7 +538,7 @@ footer {
     margin-right: 5px;
   }
   .starting-location-search-div{
-    min-width: 30px;
+    min-width: 0;
   }
   .filters-header {
     font-size: 15px;
@@ -584,7 +584,7 @@ footer {
     max-width: 90%;
     margin-bottom: 5px;
     margin-top: 5px;
-    min-width: 10px;
+    min-width: 0;
   }
 
   
