@@ -328,6 +328,24 @@ input[type=submit] {
   background-color: #faf8f3;
 }
 
+.password-reset-form ul{
+  list-style-type: none;
+  margin: 0px;
+  text-align: center;
+  list-style-position: inside;
+  padding: 20px 0px 20px 0px;
+  font-size: 12px;
+}
+
+
+.password-reset-form input{
+  margin-top: 10px;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+  height: 25px;
+}
+
+
 .form-input>* {
   margin-top: 15px;
   vertical-align: middle;
