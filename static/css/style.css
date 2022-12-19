@@ -642,18 +642,6 @@ footer {
     min-width: 0;
   }
 
-  .pac-icon{
-    display: none;
-  }
-
-  .pac-item-query, .pac-container .pac-item {
-    white-space: normal;
-    font-size: 5px;
-    padding: 0px;
-    margin: 0px;
-    line-height: 4;
-
-  }
 
   .add-rest-search {
     height: 40px;

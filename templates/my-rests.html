@@ -54,6 +54,24 @@
                     <input class="starting-location-search-input" id="searchTextField" placeholder="Search..."
                         type="text">
                 </div>
+
+                <style>
+                    @media (max-width: 600px) {
+                        .pac-icon {
+                            display: none;
+                        }
+
+                        .pac-item,
+                        .pac-container,
+                        .pac-item-query {
+                            white-space: normal;
+                            font-size: 5px;
+                            padding: 0px;
+                            margin: 0px;
+                            line-height: 4;
+                        }
+                    }
+                </style>
                 <script>
                     if (!isNaN(startLong) && !isNaN(startLat)) {
                         searchField = document.getElementById("searchTextField");
