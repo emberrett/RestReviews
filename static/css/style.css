@@ -328,7 +328,7 @@ input[type=submit] {
   background-color: #faf8f3;
 }
 
-.password-reset-form ul{
+.password-reset-form ul {
   list-style-type: none;
   margin: 0px;
   text-align: center;
@@ -338,7 +338,7 @@ input[type=submit] {
 }
 
 
-.password-reset-form input{
+.password-reset-form input {
   margin-top: 10px;
   border: 1px solid #c8c8c8;
   border-radius: 5px;
@@ -538,18 +538,18 @@ footer {
   margin-top: -15px;
 }
 
-#my_account_title{
+#my_account_title {
   margin-top: 100px;
 }
 
-.my-account{
+.my-account {
   text-align: center;
 }
 
 @media (max-width: 600px) {
 
 
-  #my_account_title{
+  #my_account_title {
     margin-top: 150px;
   }
 
@@ -643,6 +643,9 @@ footer {
   }
 
 
+  .pac-item-query {
+    font-size: 7px;
+  }
 
   .add-rest-search {
     height: 40px;
@@ -663,7 +666,7 @@ footer {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    text-align:center;
+    text-align: center;
 
   }
 
@@ -726,7 +729,7 @@ footer {
     margin-top: 15px;
   }
 
-  #my_rating_label{
+  #my_rating_label {
     padding-top: 20px;
   }
 
