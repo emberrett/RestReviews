@@ -7,12 +7,8 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
-from django.contrib.postgres import lookups
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from django.db.models import CharField,TextField
-CharField.register_lookup(lookups.SearchLookup)
-TextField.register_lookup(lookups.SearchLookup)
 
 
 
@@ -215,9 +211,9 @@ def show_rest(request):
 
     search_query = request.GET.get("search")
     if search_query:
-        rests = rests.filter(Q(rest__search=search_query) | 
-                             Q(category__search=search_query) |
-                             Q(address__search=search_query))
+        rests = rests.filter(Q(rest__icontains=search_query) | 
+                             Q(category__icontains=search_query) |
+                             Q(address__icontains=search_query))
         
     if category_filter:
         if category_filter == "none":
