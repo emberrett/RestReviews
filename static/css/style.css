@@ -5,7 +5,7 @@
   box-shadow: 0 2px 5px 0 black;
   position: fixed;
   width: 100%;
-
+  vertical-align: middle;
 
 }
 
@@ -23,6 +23,17 @@
 .topnav a:hover {
   background-color: #ddd;
   color: black;
+}
+
+.rest-search{
+  width: 200px;
+  float: right;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+  height: 25px;
+  margin-top: 10px;
+  margin-right: 15px;
+
 }
 
 td,
@@ -449,7 +460,9 @@ input[type=submit] {
   box-shadow: 5px 3px 30px rgba(0, 0, 0, .10);
 }
 
-
+.search-div{
+  margin-left:auto;
+}
 
 
 
@@ -460,6 +473,7 @@ input[type=submit] {
   height: 25px;
   width: 90%;
 }
+
 
 
 
@@ -549,6 +563,8 @@ footer {
 @media (max-width: 600px) {
 
 
+
+  
   #my_account_title {
     margin-top: 150px;
   }
@@ -582,6 +598,7 @@ footer {
     font-size: 20px;
     margin-right: 10px;
   }
+  
 
   .category-list-inner,
   .starting-location-search-div {
@@ -657,6 +674,11 @@ footer {
     padding: 0px;
   }
 
+  .rest-search{
+    font-size: 16px;
+    height:38px;
+    margin-top: 5px;
+  }
 
   .rest-form-inner {
     width: 80%;

@@ -1,5 +1,5 @@
 from django.db.models.functions import Abs, Round
-from django.db.models import F, Value, DecimalField
+from django.db.models import F, Value, DecimalField,Q
 import math
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
@@ -7,8 +7,16 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.shortcuts import render
 from .forms import AddRest
 from .models import Rest
+from django.contrib.postgres import lookups
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.db.models import CharField,TextField
+CharField.register_lookup(lookups.SearchLookup)
+TextField.register_lookup(lookups.SearchLookup)
+
+
+
+
 
 CATEGORY_LIMIT = 30
 REST_LIMIT = 300
@@ -200,26 +208,28 @@ def show_rest(request):
 
     category_filter = request.GET.get("categories")
 
+    rests = Rest.objects.filter(user=request.user)
+    categories = [category['category']
+                  for category in list(Rest.objects.filter(user=request.user).values('category'))]
+    categories = sorted(set(categories))
+
+    search_query = request.GET.get("search")
+    if search_query:
+        rests = rests.filter(Q(rest__search=search_query) | 
+                             Q(category__search=search_query) |
+                             Q(address__search=search_query))
+        
     if category_filter:
         if category_filter == "none":
             rests = None
         else:
             category_filter = category_filter.split(",")
-            rests = Rest.objects.filter(
-                user=request.user, category__in=category_filter)
-    else:
-        rests = Rest.objects.filter(user=request.user)
-        if not rests:
-            return HttpResponseRedirect('/add-rest')
-
+            rests = rests(category__in=category_filter)
+    
     if not rests:
         total_results = 0
     else:
         total_results = len(rests)
-
-    categories = [category['category']
-                  for category in list(Rest.objects.filter(user=request.user).values('category'))]
-    categories = sorted(set(categories))
 
     if page > 1:
         start_index = ((page - 1) * rows_per_page)
