@@ -63,6 +63,10 @@ tr:hover:not(:first-child) {
   overflow: scroll;
 }
 
+.example::-webkit-scrollbar{
+  display:none;
+}
+
 table {
   margin-top: 3%;
   border-spacing: 0px;
