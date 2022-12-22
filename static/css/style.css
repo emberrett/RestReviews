@@ -45,8 +45,8 @@ th {
 
 td {
   padding: 10px 10px 10px 10px;
-  text-overflow: hidden;
-  overflow-y: scroll;
+
+
   border-right: 1px solid rgb(200, 200, 200);
   border-bottom: 1px solid rgb(200, 200, 200);
 
@@ -58,7 +58,9 @@ tr:hover:not(:first-child) {
 }
 
 .table-row {
-  max-height: 30px;
+  max-height: 50px;
+  text-overflow: hidden;
+  overflow: scroll;
 }
 
 table {
