@@ -220,7 +220,7 @@ def show_rest(request):
             rests = None
         else:
             category_filter = category_filter.split(",")
-            rests = rests(category__in=category_filter)
+            rests = rests.filter(category__in=category_filter)
     
     if not rests:
         total_results = 0
