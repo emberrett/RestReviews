@@ -5,13 +5,13 @@
 
 {% block show_my_rest %}
 {% if has_rests %}
-<a href="//{{request.get_host}}/my-rests">My Restaraunts</a>
+<a href="//{{request.get_host}}/my-rests">My Restaurants</a>
 {%endif%}
 {%endblock%}
 
 {% block add_rest %}
 {% if not rest_max %}
-<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaraunt</a>
+<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaurant</a>
 {%endif%}
 {%endblock%}
 
@@ -22,8 +22,8 @@
 <div id="welcome_message">
     <br><br><br>
     <h1>Hi, Welcome to RestReviews</h1>
-    <h2> This website is a tool that helps you keep track of which restaraunts you've tried,
-        which restaraunts you've liked, and other helpful information to help you plan your dining.</h2>
+    <h2> This website is a tool that helps you keep track of which restaurants you've tried,
+        which restaurants you've liked, and other helpful information to help you plan your dining.</h2>
     <br>
     <img src="{% static 'images/icon.png' %}" id="rest_logo" alt="RestReviews Logo" >
 

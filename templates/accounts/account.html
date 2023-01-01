@@ -2,13 +2,13 @@
 {%block title%}My Account{%endblock%}
 {% block show_my_rest %}
 {% if has_rests %}
-<a href="//{{request.get_host}}/my-rests">My Restaraunts</a>
+<a href="//{{request.get_host}}/my-rests">My Restauraunts</a>
 {%endif%}
 {%endblock%}
 
 {% block add_rest %}
 {% if not rest_max %}
-<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaraunt</a>
+<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaurant</a>
 {%endif%}
 {%endblock%}
 
