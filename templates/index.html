@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block title %}RestReviews{% endblock title %}
-
+{% block head_extra %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6627540741514010"
+    crossorigin="anonymous"></script>
+{% endblock head_extra %}
 {% block show_my_rest %}
 {% if has_rests %}
 <a href="//{{request.get_host}}/my-rests">My Restaurants</a>
@@ -25,7 +28,7 @@
     <h2> This website is a tool that helps you keep track of which restaurants you've tried,
         which restaurants you've liked, and other helpful information to help you plan your dining.</h2>
     <br>
-    <img src="{% static 'images/icon.png' %}" id="rest_logo" alt="RestReviews Logo" >
+    <img src="{% static 'images/icon.png' %}" id="rest_logo" alt="RestReviews Logo">
 
 </div>
 {% endblock content %}

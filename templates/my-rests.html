@@ -19,7 +19,10 @@
 <script src="{% static 'js/find_start.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/get_distance.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/center_popup.js' %}" type="text/javascript"></script>
-
+{% block head_extra %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6627540741514010"
+    crossorigin="anonymous"></script>
+{% endblock head_extra %}
 <div class="centered">
 
     <div class="div-table">
@@ -48,7 +51,7 @@
 
                         </ul>
                 </div>
-               
+
                 <div class="starting-location-search-div">
                     <h1 class="filters-header">Starting Location</h1>
 

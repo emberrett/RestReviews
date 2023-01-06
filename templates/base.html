@@ -6,13 +6,12 @@
     <title>
         {% block title %}base-template{% endblock title %}
     </title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6627540741514010"
-        crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="{% static 'images/icon.png' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta name="viewport" content="width=device-width; initial-scale=1.0;">
     <script src="https://kit.fontawesome.com/{{FA_KEY}}.js" crossorigin="anonymous"></script>
-    {% block head_extra %}{% endblock head_extra %}
+    {% block head_extra %}
+    {% endblock head_extra %}
 </head>
 {%block body_style %}
 
@@ -35,9 +34,10 @@
         <a href="//{{request.get_host}}/accounts/account">Account</a>
         <a href="//{{request.get_host}}/accounts/logout">Logout</a>
         <span class="search-div">
-                <input id="rest_search" class="rest-search" id="searchTextField" placeholder="Search..." type="text" maxlength="35"onkeypress="submitSearch(event)">
+            <input id="rest_search" class="rest-search" id="searchTextField" placeholder="Search..." type="text"
+                maxlength="35" onkeypress="submitSearch(event)">
         </span>
-       
+
 
         {% else %}
         {% if request.path != "/accounts/register" %}
