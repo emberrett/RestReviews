@@ -706,7 +706,8 @@ footer {
   }
 
   .rest-search {
-    width: 150px;
+    width: 20%;
+    height: 30px;
   }
 
   .rest-form-inner {
