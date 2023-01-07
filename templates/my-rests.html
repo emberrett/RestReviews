@@ -6,7 +6,8 @@
 
 {% block add_rest %}
 {% if not rest_max %}
-<a id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaurant</a>
+<a class="topnav-item-desktop" id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaurant</a>
+<a class="topnav-item-mobile" id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);"><i class="fa-solid fa-plus fa-lg topnav-icon"></i></a>
 {%endif%}
 {%endblock%}
 
