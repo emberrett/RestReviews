@@ -1,28 +1,27 @@
-{% extends 'base.html' %}
-{%block title%}My Account{%endblock%}
-{% block show_my_rest %}
-{% if has_rests %}
-<a class="topnav-item-desktop" href="//{{request.get_host}}/my-rests">My Restaurants</a>
-<a class="topnav-item-mobile" href="//{{request.get_host}}/my-rests"><i class="fa-solid fa-table-list fa-lg topnav-icon"></i></a>
-{%endif%}
-{%endblock%}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block add_rest %}
-{%if not rest_max %}
-<a class="topnav-item-desktop" id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaurant</a>
-<a class="topnav-item-mobile" id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);"><i class="fa-solid fa-plus fa-lg topnav-icon"></i></a>
-{%endif%}
-{%endblock%}
+<head>
+    {% include "patterns/head.html" %}
+    <title>Account</title>
+</head>
 
-{%block content%}
-<div class="my-account">
+<body>
+    {%include "patterns/header.html" with has_rests=has_rests rest_max=rest_max %}
 
-<h1 id="my_account_title">My Account</h1>
-<div>
-<h2>Email: {{user_email}}</h2>
-<a href="/accounts/password/password_reset" ><button style="margin-right:20px" type="button" class="button">Reset Password</button></a>
-<a href="delete-account" onclick="return confirm('Are you sure? Account deletions are permanent. Your account and all of your data will be deleted.')"><button style="margin-right:20px" type="button" class="button submit-delete-button">Delete Account</button></a>
+    <body>
+        <div class="my-account">
 
-</div>
-</div>
-{%endblock%}
+            <h1 id="my_account_title">My Account</h1>
+            <div>
+                <h2>Email: {{user_email}}</h2>
+                <a href="/accounts/password/password_reset"><button style="margin-right:20px" type="button"
+                        class="button">Reset Password</button></a>
+                <a href="delete-account"
+                    onclick="return confirm('Are you sure? Account deletions are permanent. Your account and all of your data will be deleted.')"><button
+                        style="margin-right:20px" type="button" class="button submit-delete-button">Delete
+                        Account</button></a>
+            </div>
+        </div>
+        {% include "patterns/footer.html" %}
+    </body>

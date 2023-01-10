@@ -1,29 +1,17 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'patterns/head.html' %}
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6627540741514010"
+        crossorigin="anonymous"></script>
+    <title>RestReviews</title>
+</head>
+
+<body>
+{%include "patterns/header.html" with has_rests=has_rests rest_max=rest_max %}
 {% load static %}
-
-{% block title %}RestReviews{% endblock title %}
-{% block head_extra %}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6627540741514010"
-    crossorigin="anonymous"></script>
-{% endblock head_extra %}
-{% block show_my_rest %}
-{% if has_rests %}
-<a class="topnav-item-desktop" href="//{{request.get_host}}/my-rests">My Restaurants</a>
-<a class="topnav-item-mobile" href="//{{request.get_host}}/my-rests"><i class="fa-solid fa-table-list fa-lg topnav-icon"></i></a>
-{%endif%}
-{%endblock%}
-
-{% block add_rest %}
-{% if not rest_max %}
-<a class="topnav-item-desktop" id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);">Add a Restaurant</a>
-<a class="topnav-item-mobile" id="add-rest-link" onclick="MyPopUpWin('add-rest', 800,600);"><i class="fa-solid fa-plus fa-lg topnav-icon"></i></a>
-{%endif%}
-{%endblock%}
-
-
-
-
-{% block content %}
 <div id="welcome_message">
     <br><br><br>
     <h1>Hi, Welcome to RestReviews</h1>
@@ -33,4 +21,6 @@
     <img src="{% static 'images/icon.png' %}" id="rest_logo" alt="RestReviews Logo">
 
 </div>
-{% endblock content %}
+
+{% include 'patterns/footer.html' %}
+</body>

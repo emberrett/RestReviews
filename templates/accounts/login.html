@@ -1,8 +1,13 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Login{% endblock %}
+<head>
+	{% include "patterns/head.html" %}
+	<title>Login</title>
+</head>
 
-{% block content %}
+<body>
+	{% include "patterns/header.html" %}
 <div class="account-form-div">
     <form action="login" method="post">
         {% csrf_token%}
@@ -28,4 +33,5 @@
         </div>
     </form>
 </div>
-{% endblock content %}
+{% include "patterns/footer.html" %}
+</body>

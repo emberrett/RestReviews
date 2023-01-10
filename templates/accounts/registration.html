@@ -1,45 +1,49 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
 
+<head>
+	{% include "patterns/head.html" %}
+	<title>Register</title>
+</head>
 
-{% block title %}SignUp{% endblock %}
-
-
-{% block content %}
-<form action="/accounts/register" method="POST" class="form-horizontal">
-	{% csrf_token%}
-	<div class="account-form-div">
-		<div>
+<body>
+	{% include "patterns/header.html" %}
+	<form action="/accounts/register" method="POST" class="form-horizontal">
+		{% csrf_token%}
+		<div class="account-form-div">
 			<div>
-				<h2 style="text-align:center;">Register</h2>
-				<input type="text" class="account-form" name="first_name" id="first_name" placeholder="First Name"
+				<div>
+					<h2 style="text-align:center;">Register</h2>
+					<input type="text" class="account-form" name="first_name" id="first_name" placeholder="First Name"
+						Required>
+
+				</div>
+				<input type="text" class="account-form" name="last_name" id="last_name" placeholder="Last Name"
 					Required>
-
-			</div>
-			<input type="text" class="account-form" name="last_name" id="last_name" placeholder="Last Name" Required>
-			<div>
-				<input type="email" class="account-form" name="email" id="email" placeholder="Enter email" Required>
-			</div>
-			<div>
-				<input type="password" class="account-form" name="password" id="password" placeholder="Enter Password"
-					Required>
-			</div>
-			<div>
-				<input type="password" class="account-form" name="confirm_password" id="confirm_password"
-					placeholder="Confirm Your Password" Required>
-			</div>
-			<div>
-				<button type="submit" class="button" style="margin-top: 30px">SIGNUP</button>
+				<div>
+					<input type="email" class="account-form" name="email" id="email" placeholder="Enter email" Required>
+				</div>
+				<div>
+					<input type="password" class="account-form" name="password" id="password"
+						placeholder="Enter Password" Required>
+				</div>
+				<div>
+					<input type="password" class="account-form" name="confirm_password" id="confirm_password"
+						placeholder="Confirm Your Password" Required>
+				</div>
+				<div>
+					<button type="submit" class="button" style="margin-top: 30px">SIGNUP</button>
+				</div>
 			</div>
 		</div>
+	</form>
+	<div class="form-group">
+		{% for message in messages %}
+		<div class="alert alert-danger" role="alert">
+			{{message}}
+		</div>
+		{% endfor %}
 	</div>
-</form>
-<div class="form-group">
-	{% for message in messages %}
-	<div class="alert alert-danger" role="alert">
-		{{message}}
-	</div>
-	{% endfor %}
-</div>
-
-{% endblock content %}
+	{% include "patterns/footer.html" %}
+</body>
