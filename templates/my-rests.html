@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    {%include "patterns/header.html" with has_rests=has_rests rest_max=rest_max %}
+    {%include "patterns/header.html" with has_rests=True rest_max=rest_max %}
 
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&v=3.exp&sensor=false&libraries=places"></script>
@@ -100,7 +100,7 @@
                                 <a id="distance" class="distance">Distance</a>
                             </th>
                             <th class="hidden-mobile">Address</th>
-                            <th class="hidden-mobile notes">Notes</th>
+                            <th class="hidden-mobile">Notes</th>
 
                         </tr>
 

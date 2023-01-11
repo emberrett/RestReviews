@@ -26,7 +26,7 @@ def get_categories(rests):
         category_list = sorted(set([row["category"]
                                 for row in categories]), key=str.casefold)
         return category_list
-    return None
+    return []
 
 def rest_post(request, initial_obj=None):
     if initial_obj:

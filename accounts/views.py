@@ -17,7 +17,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 from main.models import Rest
-from main.views import user_has_rests,reached_max
+from main.views import user_has_rests,reached_max, REST_LIMIT
 User = get_user_model()
 
 
@@ -147,7 +147,7 @@ def password_reset_request(request):
 def view_account(request):
     user = request.user
     has_rest = user_has_rests(request.user)
-    return render(request, 'accounts/account.html', {'user_email': user, 'has_rests': has_rest, 'rest_max': reached_max(user=request.user)})
+    return render(request, 'accounts/account.html', {'user_email': user, 'has_rests': has_rest, 'rest_max': reached_max(request.user, REST_LIMIT)})
 
 @login_required(login_url='/accounts/login')
 def delete_account(request):

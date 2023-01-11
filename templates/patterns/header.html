@@ -34,19 +34,9 @@
 
 
     {% else %}
-    {% if request.path != "/accounts/register" %}
 
     <a href="//{{request.get_host}}/accounts/register">Sign Up</a>
-
-    {% endif %}
-    {% if request.path != "/accounts/login" %}
-
     <a href="//{{request.get_host}}/accounts/login">Login</a>
 
     {% endif %}
-
-
-    {% endif %}
-
-
 </div>

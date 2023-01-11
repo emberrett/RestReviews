@@ -20,6 +20,11 @@
   font-size: 17px;
 }
 
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #ddd;
@@ -94,8 +99,7 @@ th {
 
 .notes {
   max-width: 90px;
-  text-overflow: hidden;
-  overflow: scroll;
+  overflow: auto;
 
 }
 
@@ -136,10 +140,6 @@ tbody tr:nth-child(odd) {
 }
 
 
-
-.example::-webkit-scrollbar {
-  display: none;
-}
 
 .centered {
   display: flex;
@@ -398,7 +398,6 @@ input[type=submit] {
 
 .starting-location-search-div {
   margin-top: 10px;
-
   text-align: center;
 }
 
@@ -460,8 +459,7 @@ input[type=submit] {
 }
 
 .category-list-items {
-  overflow-y: scroll;
-  overflow: scroll;
+  overflow: auto;
   white-space: nowrap;
   list-style-type: none;
   margin: 0px;
@@ -690,7 +688,7 @@ footer {
     max-width: 70%;
     margin-bottom: 5px;
     margin-top: 5px;
-    min-width: 0;
+    min-width: 0px;
   }
 
 
