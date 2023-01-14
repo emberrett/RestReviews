@@ -114,7 +114,7 @@ def show_rest(request):
                       'has_back': True if page > 1 else False,
                       'next_page': page + 1,
                       'back_page': page - 1,
-                      'total_pages': math.ceil(len(rests) / ROWS_PER_PAGE) if rests else 1,
+                      'total_pages': math.ceil(total_results / ROWS_PER_PAGE) if rests else 1,
                       'categories': get_categories(rests),
                       'rest_max': reached_max(user=request.user, rest_limit=REST_LIMIT),
                       'rest_limit': REST_LIMIT
