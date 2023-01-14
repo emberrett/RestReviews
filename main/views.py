@@ -99,21 +99,21 @@ def show_rest(request):
     rests = filter_search(request, rests)
     rests = filter_categories(request, rests)
     rests = set_distance(request, rests)
-
+    total_results = len(rests) if rests else 0
     page = get_page(request)
     start_index = get_start_index(page, ROWS_PER_PAGE)
-    rests = rests.order_by(*eval(get_order_list_str(request))
-                           )[start_index: start_index + ROWS_PER_PAGE]
+    if rests:
+        rests = rests.order_by(*eval(get_order_list_str(request))
+                            )[start_index: start_index + ROWS_PER_PAGE]
 
     return render(request, 'my-rests.html',
                   {
                       'rests': rests,
                       'page': page,
-                      'has_next': True if rests and len(rests) > ROWS_PER_PAGE * page else False,
+                      'has_next': True if rests and total_results > ROWS_PER_PAGE * page else False,
                       'has_back': True if page > 1 else False,
                       'next_page': page + 1,
                       'back_page': page - 1,
-                      'total_results': len(rests) if rests else 9,
                       'total_pages': math.ceil(len(rests) / ROWS_PER_PAGE) if rests else 1,
                       'categories': get_categories(rests),
                       'rest_max': reached_max(user=request.user, rest_limit=REST_LIMIT),

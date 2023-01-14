@@ -140,7 +140,7 @@ def filter_categories(request, rests):
 
         if category_filter:
             if category_filter == "none":
-                rests = None
+                return None
             else:
                 category_filter = category_filter.split(",")
             rests = rests.filter(category__in=category_filter)
