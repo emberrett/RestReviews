@@ -91,10 +91,6 @@ def delete_rest(request, id):
 
 @ login_required(login_url='/accounts/login')
 def show_rest(request):
-    if request.method == 'POST':
-        set_miles_bool(request)
-
-
     rests = Rest.objects.filter(user=request.user)
     rests = filter_search(request, rests)
     rests = filter_categories(request, rests)

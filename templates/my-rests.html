@@ -140,45 +140,36 @@
                         {% endfor %}
 
                     </table>
+                    <div style="text-align:center">
 
+                        <p id="page_count_desktop">Page {{page}} of {{total_pages}}</p>
+                        <p id="page_count_mobile">{{page}}/{{total_pages}}</p>
+
+                    </div>
                     <div id="container">
                         <div id="left">
                             {% if has_back %}
                             <a class="back_button" id="back_button">
-                                <button type="button" class="button">Back</button>
+                                <button id="back_button_desktop" type="button" class="button">Back</button>
+                                <button id="back_button_mobile" type="button" class="button"><</button>
                             </a>
                             {%endif%}
+                        </div>
+                        <div id="center">
+
                         </div>
                         <div id="right">
                             {% if has_next %}
                             <a class="next_button" id="next_button">
-                                <button type="button" class="button">Next</button></a>
+                                <button id="next_button_desktop" type="button" class="button">Next</button>
+                                <button id="next_button_mobile" type="button" class="button">></button>
+                            </a>
+
                             {%endif%}
-                        </div>
-                        <div id="centered">
-
-                            <p id="page_count" style="white-space: nowrap;">Page {{page}} of {{total_pages}}</p>
-
-                            <div>
-                                <form action="{{submit_path}}" method="post">
-                                    {% csrf_token %}
-                                    <input id="miles" class="large-radio" type="radio" name="measurement" value="true"
-                                        size="50" onclick="this.form.submit();" checked><label id=miles_label
-                                        class="enlarged-on-mobile" for="miles">mi</label>
-                                    <input id="km" class="large-radio" type="radio" name="measurement" value="false"
-                                        size="50" onclick="this.form.submit();"><label id=miles_label
-                                        class="enlarged-on-mobile" for="km">km</label>
-                                </form>
-                            </div>
-                            {%if not request.user.miles %}
-                            <script>
-                                let kmRadio = document.getElementById("km");
-                                kmRadio.checked = true;
-                            </script>
-                            {%endif%}
-
                         </div>
                     </div>
+                        
+                 
                     <script src="{% static 'js/table_sorting.js' %}" type="text/javascript"></script>
                     <script src="{% static 'js/page_buttons.js' %}" type="text/javascript"></script>
                     {%if rest_max %}
@@ -188,5 +179,5 @@
             </div>
         </div>
     </div>
-{% include "patterns/footer.html" %}
+    {% include "patterns/footer.html" %}
 </body>

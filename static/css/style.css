@@ -245,6 +245,22 @@ body {
   box-shadow: 5px 4px 10px rgba(0, 0, 0, .10);
 }
 
+#back_button_mobile, #next_button_mobile{
+  display: none
+}
+
+#page_count_desktop, #page_count_mobile{
+  white-space: nowrap;
+
+}
+
+#page_count_desktop{
+  margin-bottom: -30px;
+}
+
+#page_count_mobile{
+  display: none;
+}
 
 .account-form {
   width: 100%;
@@ -655,9 +671,22 @@ footer {
   }
 
 
-  #page_count {
+  #back_button_mobile, #next_button_mobile{
+    display: inline-block;
+  }
+  
+  #back_button_desktop, #next_button_desktop{
+    display: none;
+  }
+
+  #page_count_desktop{
+    display: none;
+  }
+  
+  #page_count_mobile{
+    display: block;
     font-size: 20px;
-    white-space: nowrap;
+    margin-bottom: -50px;
   }
 
   .centered {

@@ -18,6 +18,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 from main.models import Rest
 from main.views import user_has_rests,reached_max, REST_LIMIT
+from main.view_functions import set_miles_bool
+from django.db import transaction
 User = get_user_model()
 
 
@@ -145,9 +147,12 @@ def password_reset_request(request):
 
 @login_required(login_url='/accounts/login')
 def view_account(request):
-    user = request.user
-    has_rest = user_has_rests(request.user)
-    return render(request, 'accounts/account.html', {'user_email': user, 'has_rests': has_rest, 'rest_max': reached_max(request.user, REST_LIMIT)})
+    if request.method == 'POST':
+        set_miles_bool(request)
+    # need to do this so that we make sure we get actual miles bool, request.user seems to be cached
+    user = User.objects.filter(email=request.user)[0]
+    has_rest = user_has_rests(user)
+    return render(request, 'accounts/account.html', {'user_email': user, 'has_rests': has_rest, 'rest_max': reached_max(user, REST_LIMIT), "miles":user.miles})
 
 @login_required(login_url='/accounts/login')
 def delete_account(request):

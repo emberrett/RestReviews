@@ -22,6 +22,24 @@
                         style="margin-right:20px" type="button" class="button submit-delete-button">Delete
                         Account</button></a>
             </div>
+            <div style="margin-top:50px;">
+                <p><b>Distance Measurement</b></p>
+                <form action="{{submit_path}}" method="post">
+                    {% csrf_token %}
+                    <input id="miles" class="large-radio" type="radio" name="measurement" value="true"
+                        size="50" onclick="this.form.submit();" checked><label id=miles_label
+                        class="enlarged-on-mobile" for="miles">mi</label>
+                    <input id="km" class="large-radio" type="radio" name="measurement" value="false"
+                        size="50" onclick="this.form.submit();"><label id=miles_label
+                        class="enlarged-on-mobile" for="km">km</label>
+                </form>
+            </div>
+            {%if not miles %}
+            <script>
+                let kmRadio = document.getElementById("km");
+                kmRadio.checked = true;
+            </script>
+            {%endif%}
         </div>
         {% include "patterns/footer.html" %}
     </body>

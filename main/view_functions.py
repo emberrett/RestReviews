@@ -92,7 +92,6 @@ def set_miles_bool(request):
     else:
         miles_bool = False
     User.objects.filter(username=request.user).update(miles=miles_bool)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def get_order_list_str(request):
