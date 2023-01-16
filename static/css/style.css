@@ -674,7 +674,13 @@ footer {
   #back_button_mobile, #next_button_mobile{
     display: inline-block;
   }
-  
+  #back_button_mobile{
+    margin-right: 50px;
+  }
+
+  #next_button_mobile{
+    margin-left: 50px;
+  }
   #back_button_desktop, #next_button_desktop{
     display: none;
   }
@@ -686,7 +692,7 @@ footer {
   #page_count_mobile{
     display: block;
     font-size: 20px;
-    margin-bottom: -50px;
+    margin-bottom: -60px;
   }
 
   .centered {
