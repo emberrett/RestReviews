@@ -93,11 +93,13 @@ def delete_rest(request, id):
 def show_rest(request):
     rests = Rest.objects.filter(user=request.user)
     rests = filter_search(request, rests)
+    categories = get_categories(rests)
     rests = filter_categories(request, rests)
     rests = set_distance(request, rests)
     total_results = len(rests) if rests else 0
     page = get_page(request)
     start_index = get_start_index(page, ROWS_PER_PAGE)
+    
     if rests:
         rests = rests.order_by(*eval(get_order_list_str(request))
                             )[start_index: start_index + ROWS_PER_PAGE]
@@ -111,7 +113,7 @@ def show_rest(request):
                       'next_page': page + 1,
                       'back_page': page - 1,
                       'total_pages': math.ceil(total_results / ROWS_PER_PAGE) if rests else 1,
-                      'categories': get_categories(rests),
+                      'categories': categories,
                       'rest_max': reached_max(user=request.user, rest_limit=REST_LIMIT),
                       'rest_limit': REST_LIMIT
                   }
