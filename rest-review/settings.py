@@ -31,15 +31,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 TESTING = os.environ.get("TESTING")
 if TESTING == "1":
     TESTING = True
-else:
-    TESTING = False
-
-if TESTING:
     DEBUG = True
 else:
+    TESTING = False
     DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0']
+
+ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.4']
 
 if TESTING:
     ALLOWED_HOSTS.append('127.0.0.1')
@@ -113,7 +111,7 @@ WSGI_APPLICATION = 'rest-review.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'restreview',
+        'NAME': 'restreviews',
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': 'localhost',
