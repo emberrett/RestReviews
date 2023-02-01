@@ -28,33 +28,20 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-TESTING = os.environ.get("TESTING")
-if TESTING == "1":
-    TESTING = True
-    DEBUG = True
-else:
-    TESTING = False
-    DEBUG = False
+DEBUG = os.environ.get("DEBUG") == "1"
 
 
-ALLOWED_HOSTS = ['0.0.0.0', '192.168.1.4']
 
-if TESTING:
-    ALLOWED_HOSTS.append('127.0.0.1')
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', os.environ.get("PI_IP_ADDRESS")]
 
-if not TESTING:
-    EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-    EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-    EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-    EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 
-else:
-    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('GMAIL_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASSWORD')
 
-# Application definition
-
-CSRF_TRUSTED_ORIGINS = ['https://*.restreviews.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -111,7 +98,7 @@ WSGI_APPLICATION = 'rest-review.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'restreviews',
+        'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': 'localhost',
@@ -172,6 +159,3 @@ STATIC_ROOT = BASE_DIR
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-if not TESTING:
-    import django_heroku
-    django_heroku.settings(locals())
