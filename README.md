@@ -107,10 +107,17 @@ Alias /static /home/pi/Documents/RestReviews/static
 
 ### Run and Access RestReviews
 * To run the Django server, run `python3 manage.py runserver runserver 0.0.0.0:8000` in the `/home/documents/RestReviews` directory.
-* To automatically run the server on your RaspberryPi's startup, open `/etc/rc.local` and add these two lines before `exit 0`: 
+* To automatically run the server on your RaspberryPi's startup:
+1. Run 
 ```
-source /home/pi/Documents/RestReviews/venv/bin/activate
-python3 /home/pi/Documents/RestReviews/manage.py runserver 0.0.0.0:8000
+chmod 755 /home/pi/Documents/RestReviews/manage.py
+chmod 755 /home/pi/Documents/RestReviews/venv/bin/activate
+```
+2. Open `/etc/rc.local` and add these two lines before `exit 0`: 
+```
+cd /home/pi/Documents/RestReviews
+. venv/bin/activate
+/usr/bin/env python3 manage.py runserver 0.0.0.0:8000
 ```
 * When the server is running, you can access RestReviews via your RaspberryPi's IP on port 8000 example: `192.168.1.4:8000`.
 
