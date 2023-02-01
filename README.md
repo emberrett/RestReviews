@@ -8,10 +8,10 @@ You can deploy and host your clone of RestReviews on your own home server.
 This guide is written with RaspberryPis running Raspbian in mind, but should be easy to tweak to fit other hardware/OS combos. 
 
 ### Things You'll Need:
-* A RaspberryPi (headless is fine)
-* A free Font Awesome kit code, you can get one from [here](https://fontawesome.com/start).
+* A RaspberryPi (headless is fine).
+* A free Font Awesome kit code; you can get one from [here](https://fontawesome.com/start).
 * A Google Maps API key, you can get one by following [this guide](https://developers.google.com/maps/documentation/javascript/get-api-key).
-* A GMail account and app password, which you can get by following [this guide](https://support.google.com/accounts/answer/185833?hl=en)
+* A GMail account and app password, which you can get by following [this guide](https://support.google.com/accounts/answer/185833?hl=en).
 * A Django secret key which you can generate by running this in Python:
 ```
 import secrets
