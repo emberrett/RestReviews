@@ -1,6 +1,6 @@
 # RestReviews
 
-RestReviews is an open-source application for keeping track of which restaraunts you've tried, which restaurants you've liked, and other helpful information to help you plan your dining. Designed to run on a local server. 
+RestReviews is an open-source web app for keeping track of which restaraunts you've tried, which restaurants you've liked, and other helpful information to help you plan your dining. Designed to run on a local server. 
 
 ![homepage](/example_images/homepage.png)
 
