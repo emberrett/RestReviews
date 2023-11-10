@@ -105,7 +105,7 @@ This guide is written with RaspberryPis running Raspbian in mind, but should be 
     chmod 755 /home/pi/Documents/RestReviews/manage.py
     chmod 755 /home/pi/Documents/RestReviews/venv/bin/activate
     ```
-2. Open `/etc/rc.local` and add these two lines before `exit 0`: 
+2. Open `/etc/rc.local` and add these lines before `exit 0`: 
     ```
     cd /home/pi/Documents/RestReviews
     . venv/bin/activate
